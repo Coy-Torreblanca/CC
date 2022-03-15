@@ -33,16 +33,16 @@ class nav:
         return True
 
     def up(self):
-        return call_move(turtle.up)
+        return self.call_move(turtle.up)
 
     def down(self):
-        return call_move(turtle.down)
+        return self.call_move(turtle.down)
 
     def forward(self):
-        return call_move(turtle.forward)
+        return self.call_move(turtle.forward)
 
     def back(self):
-        return call_move(turtle.back)
+        return self.call_move(turtle.back)
 
     def turn_left(self):
         self.direction = self.direction_map[self.direction]["left"]
