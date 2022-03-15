@@ -3,7 +3,8 @@ BASE_URL = "https://raw.githubusercontent.com/Coy-Torreblanca/CC/master"
 -- add files here as our repo grows
 FILES = {
 	"/scripts/git.lua",
-    "/lib/refuel.py"
+    "/lib/fuel/fuel.py",
+    "/lib/fuel/refuel.py"
 }
 
 function getFile(filename)
