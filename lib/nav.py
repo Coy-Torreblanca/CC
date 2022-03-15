@@ -15,7 +15,7 @@ class nav:
         "east": {"right": "north", "left": "south"},
     }
 
-    def call_move(move):
+    def call_move(self, move):
 
         try:
             move()
@@ -32,34 +32,30 @@ class nav:
 
         return True
 
-    def up():
+    def up(self):
         return call_move(turtle.up)
 
-    def down():
+    def down(self):
         return call_move(turtle.down)
 
-    def forward():
+    def forward(self):
         return call_move(turtle.forward)
 
-    def back():
+    def back(self):
         return call_move(turtle.back)
 
-    def turn_left():
-        this.direction = this.direction_map[direction]["left"]
+    def turn_left(self):
+        self.direction = this.direction_map[direction]["left"]
         return turtle.turnLeft()
 
-    def turn_right():
-        this.direction = this.direction_map[direction]["right"]
+    def turn_right(self):
+        self.direction = this.direction_map[direction]["right"]
         return turtle.turnRight()
 
     def turn_to(to_direction):
-        while this.direction != to_direction:
-            this.turn_right()
+        while self.direction != to_direction:
+            self.turn_right()
         return True
 
-    def locate():
+    def locate(self):
         return gps.locate()
-
-
-def driver():
-    return nav()
