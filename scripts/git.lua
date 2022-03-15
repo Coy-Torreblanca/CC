@@ -6,6 +6,9 @@ FILES = {
     "/lib/fuel/fuel.py",
     "/lib/fuel/refuel.py",
     "/lib/nav.py",
+    "/lib/inventory.py",
+    "/lib/kill_tree.py",
+    "/bin/search_trees.py",
     "/bin/quarry.py"
 }
 
