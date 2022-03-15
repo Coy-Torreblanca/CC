@@ -5,7 +5,8 @@ FILES = {
 	"/scripts/git.lua",
     "/lib/fuel/fuel.py",
     "/lib/fuel/refuel.py",
-    "/lib/nav.py"
+    "/lib/nav.py",
+    "/bin/quarry.py"
 }
 
 function getFile(filename)

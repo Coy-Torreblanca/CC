@@ -19,9 +19,9 @@ def call_move(move):
         try:
             move()
         except:
-            return false
+            return False
 
-    return true
+    return True
 
 
 def up():
