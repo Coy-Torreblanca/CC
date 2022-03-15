@@ -16,13 +16,20 @@ def quarry(length, width, height):
                 if not nav.forward():
                     return False
 
-            nav.turnRight()
+            nav.turn_right()
             if not nav.forward():
                 return False
-            nav.turnRight()
+            nav.turn_right()
 
         if turtle.detectDown():
             turtle.digDown()
 
         if not nav.down():
             return False
+
+
+if len(args < 3):
+    print("usage: quarry <length> <width> <height>")
+else:
+    length, width, height = [int(x) for x in args[:3]]
+    quarry(length, width, height)
