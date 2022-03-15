@@ -31,7 +31,7 @@ def quarry(length, width, height):
             return False
 
 
-if len(args < 3):
+if len(args) < 3:
     print("usage: quarry <length> <width> <height>")
 else:
     length, width, height = [int(x) for x in args[:3]]
