@@ -10,7 +10,7 @@ FILES = {
     "/bin/refuel.py",
     "/bin/kill_tree.py",
     "/bin/search_trees.py",
-    "/bin/quarry.py"
+    "/bin/quarry.py",
     "/data/trees.txt",
 }
 
