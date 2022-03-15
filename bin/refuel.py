@@ -2,6 +2,6 @@
 
 from cc import import_file
 
-fuel = import_file("./fuel.py")
+fuel = import_file("/lib/fuel.py")
 
 fuel.refuel()

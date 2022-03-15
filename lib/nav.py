@@ -2,18 +2,19 @@
 
 from cc import turtle, import_file, gps
 
+# globals
+refuel = import_file("/bin/refuel.py")
+direction_map = {
+    "north": {"right": "west", "left": "east"},
+    "west": {"right": "south", "left": "north"},
+    "south": {"right": "east", "left": "west"},
+    "east": {"right": "north", "left": "south"},
+}
+fuel_cost = {"move": 1}
+
 
 class nav:
-    # globals
-    fuel_cost = {"move": 1}
-    refuel = import_file("/lib/fuel/fuel.py").refuel
     direction = "north"
-    direction_map = {
-        "north": {"right": "west", "left": "east"},
-        "west": {"right": "south", "left": "north"},
-        "south": {"right": "east", "left": "west"},
-        "east": {"right": "north", "left": "south"},
-    }
 
     def call_move(self, move):
 
