@@ -17,7 +17,8 @@ def call_move(move):
             refuel.refuel()
 
         try:
-            move()
+            if not move():
+                return False
         except:
             return False
 
