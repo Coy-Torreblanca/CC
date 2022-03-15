@@ -20,6 +20,8 @@ def kill_tree():
             nav.turn_to(direction)
             nav.back()
 
+        nav.turn_left()
+
     item = turtle.inspectUp()
     if item and item["name"] in tree_db:
         turtle.digUp()
