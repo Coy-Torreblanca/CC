@@ -5,7 +5,7 @@ from cc import turtle, import_file
 nav = import_file("/lib/nav.py")
 nav = nav.nav()
 
-tree_db = ["minecraft:oak_log"]
+tree_db = ["minecraft:oak_log", "minecraft:oak_leaves"]
 
 
 def kill_tree():
