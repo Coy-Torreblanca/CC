@@ -9,7 +9,7 @@ args = [0, 0, 0]
 
 def quarry(length, width, height):
 
-    turn = nav.turn_right
+    turn = nav.turn_left
 
     for z in range(height):
         for x in range(width):
@@ -35,14 +35,15 @@ def quarry(length, width, height):
 
                 turn()
 
-        if turtle.detectDown():
-            turtle.digDown()
+        if z != height - 1:
+            if turtle.detectDown():
+                turtle.digDown()
 
-        if not nav.down():
-            return False
+            if not nav.down():
+                return False
 
-        turn()
-        turn()
+            turn()
+            turn()
 
 
 if len(args) < 3:
