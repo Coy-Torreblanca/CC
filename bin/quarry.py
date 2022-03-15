@@ -21,9 +21,10 @@ def quarry(length, width, height):
                 if not nav.forward():
                     return False
 
-            turn = nav.turn_right if turn == nav.turn_left else nav.turn_left
-
             if x != width - 1:
+
+                turn = nav.turn_right if turn == nav.turn_left else nav.turn_left
+
                 turn()
 
                 if turtle.detect():
