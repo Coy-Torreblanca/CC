@@ -6,6 +6,8 @@ nav = import_file("/lib/nav.py")
 # passing args is not working
 args = [0, 0, 0]
 
+turn = nav.turn_right
+
 
 def quarry(length, width, height):
 
@@ -19,14 +21,18 @@ def quarry(length, width, height):
                 if not nav.forward():
                     return False
 
-            nav.turn_right()
+            turn = nav.turn_right if turn == nav.turn_left else nav.turn_left
 
-            if turtle.detect():
-                turtle.dig()
+            if x != width - 1:
+                turn()
 
-            if not nav.forward():
-                return False
-            nav.turn_right()
+                if turtle.detect():
+                    turtle.dig()
+
+                if not nav.forward():
+                    return False
+
+                turn()
 
         if turtle.detectDown():
             turtle.digDown()
