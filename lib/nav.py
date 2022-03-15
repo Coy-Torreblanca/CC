@@ -52,7 +52,7 @@ class nav:
         self.direction = self.direction_map[self.direction]["right"]
         return turtle.turnRight()
 
-    def turn_to(to_direction):
+    def turn_to(self, to_direction):
         while self.direction != to_direction:
             self.turn_right()
         return True
