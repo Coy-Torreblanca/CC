@@ -13,7 +13,7 @@ def vien(desired_items):
             turtle.dig()
             turtle.forward()
             direction = nav.direction
-            vein(desired_items)
+            vien(desired_items)
             nav.turn_to(direction)
             nav.back()
 
@@ -24,7 +24,7 @@ def vien(desired_items):
         turtle.digUp()
         turtle.up()
         direction = nav.direction
-        vein(desired_items)
+        vien(desired_items)
         nav.turn_to(direction)
         nav.down()
 
@@ -33,6 +33,6 @@ def vien(desired_items):
         turtle.digDown()
         turtle.down()
         direction = nav.direction
-        vein(desired_items)
+        vien(desired_items)
         nav.turn_to(direction)
         nav.up()
