@@ -4,13 +4,7 @@ from cc import turtle, import_file, gps
 
 # globals
 refuel = import_file("/bin/refuel.py")
-direction_map = {
-    "north": {"right": "west", "left": "east"},
-    "west": {"right": "south", "left": "north"},
-    "south": {"right": "east", "left": "west"},
-    "east": {"right": "north", "left": "south"},
-}
-fuel_cost = {"move": 1}
+direction_map, refuel_cost = import_file("data/nav.py")
 
 
 class nav:

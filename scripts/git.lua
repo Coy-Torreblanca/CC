@@ -12,6 +12,7 @@ FILES = {
     "/bin/search_trees.py",
     "/bin/quarry.py",
     "/data/trees.py",
+    "/data/nav.py"
 }
 
 function getFile(filename)
