@@ -3,6 +3,9 @@ from cc import turtle, import_file
 
 nav = import_file("/lib/nav.py")
 
+# passing args is not working
+args = [0, 0, 0]
+
 
 def quarry(length, width, height):
 
