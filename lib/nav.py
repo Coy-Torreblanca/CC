@@ -45,11 +45,11 @@ class nav:
         return call_move(turtle.back)
 
     def turn_left(self):
-        self.direction = this.direction_map[direction]["left"]
+        self.direction = self.direction_map[direction]["left"]
         return turtle.turnLeft()
 
     def turn_right(self):
-        self.direction = this.direction_map[direction]["right"]
+        self.direction = self.direction_map[direction]["right"]
         return turtle.turnRight()
 
     def turn_to(to_direction):
