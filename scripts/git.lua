@@ -4,7 +4,8 @@ BASE_URL = "https://raw.githubusercontent.com/Coy-Torreblanca/CC/master"
 FILES = {
 	"/scripts/git.lua",
     "/lib/fuel/fuel.py",
-    "/lib/fuel/refuel.py"
+    "/lib/fuel/refuel.py",
+    "/lib/nav.py"
 }
 
 function getFile(filename)
