@@ -11,7 +11,7 @@ FILES = {
     "/bin/kill_tree.py",
     "/bin/search_trees.py",
     "/bin/quarry.py",
-    "/data/trees.txt",
+    "/data/trees.py",
 }
 
 function getFile(filename)

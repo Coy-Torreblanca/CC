@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 
 from cc import import_file
-import json
 
 dig = import_file("/lib/dig.py")
-
-with open("/data/trees.txt") as f:
-    trees = json.loads(f.read())
+trees = import_file("/data/trees.py").get_data()
 
 dig.vien(trees)
