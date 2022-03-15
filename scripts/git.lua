@@ -2,6 +2,7 @@ BASE_URL = "https://raw.githubusercontent.com/Coy-Torreblanca/CC/master"
 
 -- add files here as our repo grows
 FILES = {
+    "/scripts/bootstrap.lua",
     "/lib/fuel.py",
     "/lib/nav.py",
     "/lib/inventory.py",
