@@ -31,7 +31,7 @@ def kill_tree():
         nav.turn_to(direction)
         nav.down()
 
-    item = turtle.inspectUp()
+    item = turtle.inspectDown()
     if item and item["name"] in tree_db:
         turtle.digDown()
         turtle.down()
