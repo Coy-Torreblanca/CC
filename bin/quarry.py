@@ -6,10 +6,10 @@ nav = import_file("/lib/nav.py")
 # passing args is not working
 args = [0, 0, 0]
 
-turn = nav.turn_right
-
 
 def quarry(length, width, height):
+
+    turn = nav.turn_right
 
     for z in range(height):
         for x in range(width):
@@ -40,6 +40,9 @@ def quarry(length, width, height):
 
         if not nav.down():
             return False
+
+        turn()
+        turn()
 
 
 if len(args) < 3:
