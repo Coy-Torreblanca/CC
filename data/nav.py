@@ -10,5 +10,5 @@ def get_data():
             "east": {"right": "north", "left": "south"},
         },
         {"move": 1},
-        {0: {1: "east", -1: "west"}, 1: {1: "south", -1: "north"}},
+        {0: {1: "east", -1: "west"}, 1: {-1: "south", 1: "north"}},
     ]

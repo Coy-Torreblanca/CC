@@ -26,22 +26,12 @@ class nav:
 
             if self.forward():
                 position2 = gps.locate()
-                if position2[0] - position[0] < 0:
-                    self.direction = "west"
-                    self.back()
-                    return True
-                elif position2[0] - position[0] > 0:
-                    self.direction = "east"
-                    self.back()
-                    return True
-                elif position2[1] - position[1] > 0:
-                    self.direction = "south"
-                    self.back()
-                    return True
-                elif position2[1] - position[1] < 0:
-                    self.direction = "north"
-                    self.back()
-                    return True
+                for axis in range(2):
+                    if coordinates[axis] != 0:
+                        self.direction = coordinate_cardinal_map[axis][
+                            coordinates[axis]
+                        ]
+                        return True
             return False
 
     def call_move(self, move):
@@ -90,7 +80,7 @@ class nav:
         return gps.locate()
 
     def move_relative(self, coordinates):
-        for axis in coordinates[:2]:
+        for axis in range(2):
 
             if coordinates[axis] != 0:
                 movement = coordinates[axis] / abs(coordinates[axis])
@@ -100,11 +90,9 @@ class nav:
                         return False
 
         move = self.up if coordinates[2] > 0 else self.down
-
-        if coordinates[2] != 0:
-            for _ in range(abs(coordinates[2])):
-                if not move():
-                    return False
+        for _ in range(abs(coordinates[2])):
+            if not move():
+                return False
 
         return True
 
