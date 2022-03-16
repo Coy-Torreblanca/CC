@@ -93,7 +93,7 @@ class nav:
         for axis in coordinates:
             movement = coordinates[axis] / abs(coordinates[axis])
             self.turn_to(coordinate_cardinal_map[axis][movement])
-            for movements in coordinates[axis]:
+            for _ in range(coordinates[axis]):
                 if not self.forward():
                     return False
             return True
