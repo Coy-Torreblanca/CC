@@ -29,7 +29,9 @@ class nav:
                 for axis in range(2):
                     if diff[axis] != 0:
                         self.direction = coordinate_cardinal_map[axis][diff[axis]]
+                        self.back()
                         return True
+            self.back()
             return False
 
     def call_move(self, move):
