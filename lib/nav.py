@@ -90,13 +90,23 @@ class nav:
         return gps.locate()
 
     def move_relative(self, coordinates):
-        for axis in coordinates:
-            movement = coordinates[axis] / abs(coordinates[axis])
-            self.turn_to(coordinate_cardinal_map[axis][movement])
-            for _ in range(coordinates[axis]):
-                if not self.forward():
+        for axis in coordinates[:2]:
+
+            if axis != 0:
+                movement = coordinates[axis] / abs(coordinates[axis])
+                self.turn_to(coordinate_cardinal_map[axis][movement])
+                for _ in range(coordinates[axis]):
+                    if not self.forward():
+                        return False
+
+        move = self.up if coordinates[2] > 0 else self.down
+
+        if coordinates[2] != 0:
+            for _ in range(coordinates[2]):
+                if not move():
                     return False
-            return True
+
+        return True
 
     def move(self, coordinates):
         position = gps.locate()
