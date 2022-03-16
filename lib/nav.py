@@ -9,6 +9,34 @@ direction_map, refuel_cost = import_file("data/nav.py").get_data()
 
 class nav:
     direction = "north"
+    direction_test_pass = False
+
+    def __init__(self):
+        self.direction_test_pass = self.direction_test()
+
+    def direction_test():
+        # west is negative x
+        # north is negative z
+        # xyz
+        position = gps.locate()
+
+        if position[0]:
+
+            if self.forward():
+                position2 = gps.locate()
+                if position2[0] - position[0] < 0:
+                    self.direction = "west"
+                    return True
+                elif position2[0] - position[0] > 0:
+                    self.direction = "east"
+                    return True
+                elif position2[2] - position[2] > 0:
+                    self.direction = "south"
+                    return True
+                elif position2[2] - position[2] < 0:
+                    self.direction = "north"
+                    return True
+            return False
 
     def call_move(self, move):
 
