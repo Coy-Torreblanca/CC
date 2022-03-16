@@ -4,7 +4,7 @@
 def get_data():
     return [
         {
-            "north": {"right": "west", "left": "east"},
+            "north": {"left": "west", "right": "east"},
             "west": {"right": "south", "left": "north"},
             "south": {"right": "east", "left": "west"},
             "east": {"right": "north", "left": "south"},
