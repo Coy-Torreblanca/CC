@@ -95,14 +95,14 @@ class nav:
             if coordinates[axis] != 0:
                 movement = coordinates[axis] / abs(coordinates[axis])
                 self.turn_to(coordinate_cardinal_map[axis][movement])
-                for _ in range(coordinates[axis]):
+                for _ in range(abs(coordinates[axis])):
                     if not self.forward():
                         return False
 
         move = self.up if coordinates[2] > 0 else self.down
 
         if coordinates[2] != 0:
-            for _ in range(coordinates[2]):
+            for _ in range(abs(coordinates[2])):
                 if not move():
                     return False
 
