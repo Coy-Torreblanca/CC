@@ -4,7 +4,9 @@ from cc import turtle, import_file, gps
 
 # globals
 refuel = import_file("/lib/fuel.py").refuel
-direction_map, refuel_cost = import_file("data/nav.py").get_data()
+direction_map, refuel_cost, coordinate_cardinal_map = import_file(
+    "data/nav.py"
+).get_data()
 
 
 class nav:
@@ -14,10 +16,10 @@ class nav:
     def __init__(self):
         self.direction_test_pass = self.direction_test()
 
-    def direction_test():
+    def direction_test(self):
         # west is negative x
         # north is negative z
-        # xyz
+        # xzy
         position = gps.locate()
 
         if position[0]:
@@ -26,15 +28,19 @@ class nav:
                 position2 = gps.locate()
                 if position2[0] - position[0] < 0:
                     self.direction = "west"
+                    self.back()
                     return True
                 elif position2[0] - position[0] > 0:
                     self.direction = "east"
+                    self.back()
                     return True
-                elif position2[2] - position[2] > 0:
+                elif position2[1] - position[1] > 0:
                     self.direction = "south"
+                    self.back()
                     return True
-                elif position2[2] - position[2] < 0:
+                elif position2[1] - position[1] < 0:
                     self.direction = "north"
+                    self.back()
                     return True
             return False
 
@@ -82,3 +88,19 @@ class nav:
 
     def locate(self):
         return gps.locate()
+
+    def move_relative(self, coordinates):
+        for axis in coordinates:
+            movement = coordinats[axis] / abs(coordinates[axis])
+            self.turn_to(coordinate_cardinal_map[axis][movement])
+            for movements in coordinates[axis]:
+                if not self.forward():
+                    return False
+            return True
+
+    def move(self, coordinates):
+        position = gps.locate()
+        if position[0]:
+            diff_coordinates = [a - b for a, b in zip(coordinates, position)]
+            return self.move_relative(diff_coordinates)
+        return False
