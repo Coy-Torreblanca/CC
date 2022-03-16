@@ -5,9 +5,9 @@ def get_data():
     return [
         {
             "north": {"left": "west", "right": "east"},
-            "west": {"right": "south", "left": "north"},
-            "south": {"right": "east", "left": "west"},
-            "east": {"right": "north", "left": "south"},
+            "west": {"left": "south", "right": "north"},
+            "south": {"left": "east", "right": "west"},
+            "east": {"left": "north", "right": "south"},
         },
         {"move": 1},
         {0: {1: "east", -1: "west"}, 1: {-1: "south", 1: "north"}},
