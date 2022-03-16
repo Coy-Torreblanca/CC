@@ -92,7 +92,7 @@ class nav:
     def move_relative(self, coordinates):
         for axis in coordinates[:2]:
 
-            if axis != 0:
+            if coordiantes[axis] != 0:
                 movement = coordinates[axis] / abs(coordinates[axis])
                 self.turn_to(coordinate_cardinal_map[axis][movement])
                 for _ in range(coordinates[axis]):
