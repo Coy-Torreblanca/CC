@@ -22,4 +22,13 @@ def search(search_item):
         item = turtle.getItemDetail()
         if item:
             if item["name"] == search_item:
-                break
+                return True
+        return False
+
+
+def is_full():
+    for i in range(1, 17):
+        turtle.select(slot)
+        if not turtle.getItemDetail():
+            return False
+    return True
