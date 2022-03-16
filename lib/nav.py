@@ -20,17 +20,15 @@ class nav:
         # west is negative x
         # north is negative z
         # xzy
-        position = gps.locate()
+        starting_position = gps.locate()
 
-        if position[0]:
+        if starting_position[0]:
 
             if self.forward():
-                position2 = gps.locate()
+                diff = [a - b for a, b in zip(gps.locate(), starting_position)]
                 for axis in range(2):
-                    if coordinates[axis] != 0:
-                        self.direction = coordinate_cardinal_map[axis][
-                            coordinates[axis]
-                        ]
+                    if diff[axis] != 0:
+                        self.direction = coordinate_cardinal_map[axis][diff[axis]]
                         return True
             return False
 
