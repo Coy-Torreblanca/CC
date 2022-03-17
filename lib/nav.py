@@ -75,7 +75,7 @@ class nav:
         return True
 
     def locate(self):
-        return gps.locate()
+        return [x for x in gps.locate()]
 
     def move_relative(self, coordinates):
         for axis in range(2):
@@ -95,7 +95,7 @@ class nav:
         return True
 
     def move(self, coordinates):
-        position = gps.locate()
+        position = self.locate()
         if position[0]:
             diff_coordinates = [a - b for a, b in zip(coordinates, position)]
             return self.move_relative(diff_coordinates)
@@ -103,9 +103,9 @@ class nav:
 
     def path(self, coordinates):
 
-        while gps.locate() != coordinates:
+        while self.locate() != coordinates:
             if not self.move(coordinates):
-                current_position = gps.locate()
+                current_position = self.locate()
                 for axis in range(3):
                     for movement in [1, -1]:
                         next_position = [0, 0, 0]
