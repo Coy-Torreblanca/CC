@@ -37,13 +37,15 @@ def is_full():
 class inventory:
     items = {}
     current_slot = 0
+    max_storage = 16
     position = None
 
-    def __init__(self, position):
+    def __init__(self, position, max_storage):
         self.position = position
+        self.max_storage = max_storage if max_storage else self.max_storage
 
     def is_full(self):
-        if self.current_slot > 16:
+        if self.current_slot > self.max_storage:
             for _, count in self.items.values():
                 if count < 64:
                     return False
@@ -51,7 +53,7 @@ class inventory:
         return True
 
     def is_full_item(self, name):
-        if self.current_slot > 16:
+        if self.current_slot > self.max_storage:
             if self.items[name][1] == 64:
                 return True
         return False
