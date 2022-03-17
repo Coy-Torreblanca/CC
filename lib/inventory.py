@@ -64,8 +64,8 @@ class inventory:
             return False
 
         if name not in self.items:
-            self.current_slot += 1
             self.items[name] = [self.current_slot, 0]
+            self.current_slot += 1
 
         while count:
             if self.is_full_item(name):
@@ -75,6 +75,7 @@ class inventory:
             if self.items[name][1] == 64:
                 self.current_slot += 1
                 self.items[name] = [self.current_slot, 0]
+                self.current_slot += 1
 
             # Quanity of item in item's slot
             slot_quantity = self.items[name][1]
