@@ -45,36 +45,46 @@ class inventory:
         self.max_storage = max_storage if max_storage else self.max_storage
 
     def is_full(self):
-        if self.current_slot < self.max_storage:
+        if self.current_slot > self.max_storage:
             for _, count in self.items.values():
                 if count < 64:
                     return False
             return True
-        return True
+        return False
 
     def is_full_item(self, name):
         if self.current_slot > self.max_storage:
-            if self.items[name][1] == 64:
-                return True
+            if name in self.items:
+                return self.items[name][1] == 64
+            return True
         return False
 
     def add_item(self, name, count):
         if self.is_full_item(name):
             return False
 
+        if name not in self.items:
+            self.items[name] = [self.current_slot, 0]
+            self.current_slot += 1
+
         while count:
-            if name in self.items:
-                slot_quantity = self.items[name][1]
-                to_drop = 64 - slot_quantity
-                to_drop = to_drop if to_drop <= count else count
-                self.items[name][1] += to_drop
-                if self.items[name][1] == 64:
-                    self.items[name][0] = self.current_slot
-                    self.current_slot += 1
-                count -= to_drop
-                if self.is_full_item(name):
-                    return count == 0
-            else:
+            if self.is_full_item(name):
+                return False
+
+            # If item slot has no space, update item storage
+            if self.items[name][1] == 64:
                 self.items[name] = [self.current_slot, 0]
                 self.current_slot += 1
+
+            # Quanity of item in item's slot
+            slot_quantity = self.items[name][1]
+
+            # Quantity we can drop in slot
+            to_drop = 64 - slot_quantity  # Max quantity
+            to_drop = to_drop if to_drop <= count else count
+
+            # Drop to_drop into slot
+            self.items[name][1] += to_drop
+            count -= to_drop
+
         return True
