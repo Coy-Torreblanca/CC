@@ -10,9 +10,9 @@ inv = import_file("/lib/inventory.py")
 args = [0, 0, 0]
 
 
-def put_chest():
+def put_chest(nav):
     if not inv.search("minecraft:chest"):
-        return False
+        return None
 
     nav.turn_left()
     nav.turn_left()
@@ -22,6 +22,8 @@ def put_chest():
 
     turtle.place()
 
+    inventory_size = 27
+
     if inv.search("minecraft:chest"):
         nav.turn_left()
         if nav.forward():
@@ -29,30 +31,71 @@ def put_chest():
             if turtle.detect():
                 turtle.dig()
             turtle.place()
+            inventory_size *= 2
             nav.turn_left()
             nav.back()
         nav.turn_right()
 
     nav.turn_left()
     nav.turn_left()
+    return inv.inventory(inventory_size, nav.locate(), nav.direction)
 
 
 def quarry(length, width, height):
 
     nav = nav.nav()
-    if not inv.search("minecraft:chest"):
+    if not nav.direction_test_pass:
+        return False
+
+    inventory = inv.inventory(16)
+    chest = put_chest(nav)
+    chests = [chest]
+
+    if not chest:
         return False
 
     turn = nav.turn_left
-
-    z_levels_chest = int(length * width) / (64 * 16)
 
     for z in range(height):
         for x in range(width):
             for y in range(length - 1):
 
-                if turtle.detect():
-                    turtle.dig()
+                block = turtle.inspect()
+                if block:
+                    if not inventory.is_full_item(block["name"]):
+                        turtle.dig()
+                    else:
+                        if chest.is_full_item(block["name"]):
+                            chest = put_chest(nav)
+                            if not chest:
+                                return False
+                            chests = chest + chests
+                            # remove turn by editing put_chest
+                            direction = nav.direction
+                            nav.turn_to(chest.direction)
+                            for slot in range(1, 17):
+                                turtle.select(slot)
+                                name = turtle.getItemDetail()["name"]
+                                count = turtle.getItemDetail()["count"]
+                                turtle.drop()
+                                chest.add_item(name, count)
+                            nav.turn_to(direction)
+
+                        else:
+                            position = nav.locate()
+                            direction = nav.direction
+                            if not nav.path(chest.position):
+                                return False
+                            nav.turn_to(chest.direction)
+                            for slot in range(1, 17):
+                                turtle.select(slot)
+                                name = turtle.getItemDetail()["name"]
+                                count = turtle.getItemDetail()["count"]
+                                turtle.drop()
+                                chest.add_item(name, count)
+                            if not nav.path(position):
+                                return False
+                            nav.turn_to(direction)
 
                 if not nav.forward():
                     return False
@@ -63,8 +106,42 @@ def quarry(length, width, height):
 
                 turn()
 
-                if turtle.detect():
-                    turtle.dig()
+                block = turtle.inspect()
+                if block:
+                    if not inventory.is_full_item(block["name"]):
+                        turtle.dig()
+                    else:
+                        if chest.is_full_item(block["name"]):
+                            chest = put_chest(nav)
+                            if not chest:
+                                return False
+                            chests = chest + chests
+                            # remove turn by editing put_chest
+                            direction = nav.direction
+                            nav.turn_to(chest.direction)
+                            for slot in range(1, 17):
+                                turtle.select(slot)
+                                name = turtle.getItemDetail()["name"]
+                                count = turtle.getItemDetail()["count"]
+                                turtle.drop()
+                                chest.add_item(name, count)
+                            nav.turn_to(direction)
+
+                        else:
+                            position = nav.locate()
+                            direction = nav.direction
+                            if not nav.path(chest.position):
+                                return False
+                            nav.turn_to(chest.direction)
+                            for slot in range(1, 17):
+                                turtle.select(slot)
+                                name = turtle.getItemDetail()["name"]
+                                count = turtle.getItemDetail()["count"]
+                                turtle.drop()
+                                chest.add_item(name, count)
+                            if not nav.path(position):
+                                return False
+                            nav.turn_to(direction)
 
                 if not nav.forward():
                     return False

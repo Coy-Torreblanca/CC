@@ -78,6 +78,9 @@ class nav:
         return [x for x in gps.locate()]
 
     def move_relative(self, coordinates):
+        if not self.direction_test_pass:
+            return False
+
         for axis in range(2):
 
             if coordinates[axis] != 0:
