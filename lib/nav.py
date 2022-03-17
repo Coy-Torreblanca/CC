@@ -37,19 +37,18 @@ class nav:
     def call_move(self, move):
 
         try:
-            move()
+            if move():
+                return True
 
         except BaseException as error:
             if error == "Out of fuel":
                 refuel.refuel()
 
             try:
-                if not move():
-                    return False
+                if move():
+                    return True
             except:
                 return False
-
-        return True
 
     def up(self):
         return self.call_move(turtle.up)
@@ -102,3 +101,18 @@ class nav:
             diff_coordinates = [a - b for a, b in zip(coordinates, position)]
             return self.move_relative(diff_coordinates)
         return False
+
+    def path(self, coordinates):
+
+        while gps.locate() != coordinates:
+            if not self.move(coordinates):
+                current_position = gps.locate()
+                for axis in range(3):
+                    for movement in [1, -1]:
+                        next_position = [0, 0, 0]
+                        next_position[axis] = movement
+                        self.move_relative(next_position)
+                        if self.move(coordinates):
+                            return True
+                        if not self.move(current_position):
+                            return False
