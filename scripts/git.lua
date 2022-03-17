@@ -9,11 +9,12 @@ FILES = {
     "/lib/dig.py",
     "/bin/refuel.py",
     "/bin/kill_tree.py",
-    "/bin/search_trees.py",
+    "/bin/chest_quarry.py",
     "/bin/quarry.py",
     "/data/trees.py",
     "/data/nav.py"
 }
+
 
 function getFile(filename)
 	-- download file from github
