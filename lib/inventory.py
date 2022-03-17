@@ -74,8 +74,7 @@ class inventory:
             # If item slot has no space, update item storage
             if self.items[name][1] == 64:
                 self.current_slot += 1
-                if current_slot <= self.max_storage:
-                    self.items[name] = [self.current_slot, 0]
+                self.items[name] = [self.current_slot, 0]
 
             # Quanity of item in item's slot
             slot_quantity = self.items[name][1]
