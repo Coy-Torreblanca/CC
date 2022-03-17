@@ -48,7 +48,7 @@ class inventory:
                 if count < 64:
                     return False
             return True
-        return False
+        return True
 
     def is_full_item(self, name):
         if self.current_slot > 16:
