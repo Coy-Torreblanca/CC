@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from cc import turtle
+from cc import turtle, fs
 
 # Drop all items in inventory except for any item found in exceptions.
 def drop_all(execptions):
@@ -88,3 +88,10 @@ class inventory:
             count -= to_drop
 
         return True
+
+    def print(self):
+        with fs.open("inventory_print", "w") as f:
+            f.writeLine("current_slot: ", self.current_slot)
+            for name in items:
+                slot, count = items[name]
+                f.writeLine(name, " ", slot, " ", count)
