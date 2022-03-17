@@ -41,7 +41,7 @@ class nav:
                 return True
 
         except BaseException as error:
-            refuel.refuel()
+            refuel()
 
             try:
                 if move():
