@@ -91,7 +91,7 @@ class inventory:
 
     def print(self):
         with fs.open("inventory_print", "w") as f:
-            f.writeLine("current_slot: " + self.current_slot)
+            f.writeLine("current_slot: " + str(self.current_slot))
             for name in items:
                 slot, count = items[name]
-                f.writeLine(name + " " + slot + " " + count)
+                f.writeLine(name + " " + str(slot) + " " + str(count))
