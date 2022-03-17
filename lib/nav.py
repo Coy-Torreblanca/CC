@@ -31,7 +31,7 @@ class nav:
                         self.direction = coordinate_cardinal_map[axis][diff[axis]]
                         self.back()
                         return True
-            self.back()
+                self.back()
             return False
 
     def call_move(self, move):
