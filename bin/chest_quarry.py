@@ -46,9 +46,14 @@ def put_chest(nav):
     )  # test - should be inventory_size
 
 
+def error(message):
+    print(error)
+
+
 def quarry(length, width, height):
 
     if not nav.direction_test_pass:
+        error("direction test pass failed")
         return False
 
     inventory = inv.inventory(1)  # test - should be 16
@@ -56,6 +61,7 @@ def quarry(length, width, height):
     chests = [chest]
 
     if not chest:
+        print("chest could not be placed")
         return False
 
     turn = nav.turn_left
