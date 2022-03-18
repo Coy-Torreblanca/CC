@@ -11,6 +11,7 @@ args = [6, 6, 6]  # test
 
 
 def put_chest(nav):
+    # 1. check stack functionality by removing argumetn
     if not inv.search("minecraft:chest"):
         error("No chest to place")
         return None
@@ -74,6 +75,7 @@ def quarry(length, width, height):
     for z in range(height):
         for x in range(width):
             for y in range(length - 1):
+                # 2.move dig to function
                 block = turtle.inspect()
                 if block:
                     inventory.print()  # test
@@ -122,6 +124,15 @@ def quarry(length, width, height):
                                 print("return position could not be reached")
                                 return False
                             nav.turn_to(direction)
+                        block = turtle.inspect()
+                        if block:
+                            inventory.print()  # test
+                            if not inventory.is_full_item(block["name"]):
+                                turtle.dig()
+                                inventory.add_item(block["name"], 1)
+                            else:
+                                error("inventory full *?*")
+                                return False
 
                 if not nav.forward():
                     print("cannot move forward *?*")
@@ -175,6 +186,15 @@ def quarry(length, width, height):
                                 print("could not move back to position")
                                 return False
                             nav.turn_to(direction)
+                        block = turtle.inspect()
+                        if block:
+                            inventory.print()  # test
+                            if not inventory.is_full_item(block["name"]):
+                                turtle.dig()
+                                inventory.add_item(block["name"], 1)
+                            else:
+                                error("inventory full *?*")
+                                return False
 
                 if not nav.forward():
                     print("could not move forward *?*")
