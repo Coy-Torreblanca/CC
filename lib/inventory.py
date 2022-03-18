@@ -2,6 +2,12 @@
 
 from cc import turtle, fs
 
+# TODO: add drop
+# grass -> dirt problem
+#   add add turtle
+#       inspect will be inaccurate
+#   or dictionary
+
 # Drop all items in inventory except for any item found in exceptions.
 def drop_all(execptions):
 

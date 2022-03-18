@@ -39,11 +39,11 @@ def put_chest(nav):
             nav.back()
         nav.turn_right()
 
-    nav.turn_left()
-    nav.turn_left()
     return inv.inventory(
         1, nav.locate(), nav.direction
     )  # test - should be inventory_size
+    nav.turn_left()
+    nav.turn_left()
 
 
 def error(message):
@@ -88,6 +88,9 @@ def quarry(length, width, height):
                             for slot in range(1, 17):
                                 # TEST dont drop test
                                 turtle.select(slot)
+                                item = turtle.getItemDetail()
+                                if not item:
+                                    continue
                                 name = turtle.getItemDetail()["name"]
                                 count = turtle.getItemDetail()["count"]
                                 turtle.drop()
@@ -103,6 +106,9 @@ def quarry(length, width, height):
                             nav.turn_to(chest.direction)
                             for slot in range(1, 17):
                                 turtle.select(slot)
+                                item = turtle.getItemDetail()
+                                if not item:
+                                    continue
                                 name = turtle.getItemDetail()["name"]
                                 count = turtle.getItemDetail()["count"]
                                 turtle.drop()
