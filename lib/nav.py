@@ -22,7 +22,7 @@ class nav:
         # xzy
         starting_position = gps.locate()
 
-        if starting_position[0]:
+        if starting_position[0] is not None:
 
             if self.forward():
                 diff = [a - b for a, b in zip(gps.locate(), starting_position)]
@@ -32,7 +32,7 @@ class nav:
                         self.back()
                         return True
                 self.back()
-            return False
+        return False
 
     def call_move(self, move):
 
