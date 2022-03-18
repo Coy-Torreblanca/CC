@@ -12,6 +12,7 @@ args = [6, 6, 6]  # test
 
 def put_chest(nav):
     if not inv.search("minecraft:chest"):
+        error("No chest to place")
         return None
 
     nav.turn_left()
@@ -20,7 +21,9 @@ def put_chest(nav):
     if turtle.detect():
         turtle.dig()
 
-    turtle.place()
+    if not turtle.place():
+        error("chest could not be placed")
+        return None
 
     inventory_size = 27
 
@@ -33,17 +36,19 @@ def put_chest(nav):
             nav.turn_right()
             if turtle.detect():
                 turtle.dig()
-            turtle.place()
-            inventory_size *= 2
-            nav.turn_left()
-            nav.back()
+            if turtle.place():
+                inventory_size *= 2
+                nav.turn_left()
+                nav.back()
         nav.turn_right()
 
-    return inv.inventory(
+    inventory = inv.inventory(
         1, nav.locate(), nav.direction
     )  # test - should be inventory_size
     nav.turn_left()
     nav.turn_left()
+
+    return inventory
 
 
 def error(message):
