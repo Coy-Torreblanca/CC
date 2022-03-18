@@ -118,3 +118,4 @@ class nav:
                             return True
                         if not self.move(current_position):
                             return False
+            return True
