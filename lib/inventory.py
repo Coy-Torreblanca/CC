@@ -4,9 +4,7 @@ from cc import turtle, fs
 
 # TODO: add drop
 # grass -> dirt problem
-#   add add turtle
-#       inspect will be inaccurate
-#   or dictionary
+# inspect to dig dictionary
 
 # Drop all items in inventory except for any item found in exceptions.
 def drop_all(execptions):
@@ -38,6 +36,10 @@ def is_full():
         if not turtle.getItemDetail():
             return False
     return True
+
+
+def error(message):
+    print(message)
 
 
 class inventory:
@@ -97,6 +99,25 @@ class inventory:
             count -= to_drop
 
         return True
+
+    # Assume that there are no empty slots in between occupied slots.
+    def check_turtle_inventory(self, turtle):
+        self.items = {}
+        self.current_slot = 0
+        for slot in range(1, 17):
+            turtle.select(slot)
+            item = turtle.getItemDetail()
+            if item:
+                name = item["name"]
+                count = item["count"]
+                if not self.add_item(name, count):
+                    error("adding item to inventory failed")
+                    return False
+            else:
+                return True
+
+    # TODO drop into this chest
+    # dig
 
     def print(self):
         with fs.open("inventory_print", "w") as f:
