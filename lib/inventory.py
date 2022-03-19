@@ -72,7 +72,7 @@ class inventory:
         return False
 
     def add_item(self, name, count=1):
-
+        # TODO use dictionary for slot details
         if self.is_full_item(name):
 
             return False
@@ -172,35 +172,51 @@ class turtleInventory(inventory):
             if self.is_full_item(inventory_name):
                 return False
 
+            if inventory_name in self.items:
+
+                item = self.items[block["name"]]
+                slot = item[0]
+                count = item[1]
+
+                if count == 64:
+
+                    slot = self.current_slot
+                    count = 0
+
+            else:
+
+                slot = self.current_slot
+                count = 0
+
             self.turtle.dig()
 
-            return self.add_item(inventory_name)
+            item = self.turtle.getItemDetail(slot)
+
+            # Subtract current count and count before dig
+            add_count = item["count"] - count
+
+            # Add any items that may have leaked to another slot to count
+            if item["count"] == 64:
+                item = self.turtle.getItemDetail(self.current_slot)
+                if item:
+                    add_count += item["count"]
+
+            print("add count: ", add_count)  # test
+
+            return self.add_item(inventory_name, add_count)
 
         if self.is_full():
 
+            # Unkown item won't be added to an inventory without empty slot
             return False
 
         self.turtle.dig()
 
-        self.turtle.select(self.current_slot)
+        item = self.turtle.getItemDetail(self.current_slot)
 
-        item = self.turtle.getItemDetail()
+        self.db.insert_item(block["name"], item["name"])
 
-        if not item:
-
-            error("Item selected should exist")
-            return False
-
-        self.db.find_inventory(
-            {"inspect_name": inventory_name, "inventory_name": item["name"]}
-        )
-
-        if not self.add_item(item["name"]):
-
-            error("Adding item should succeed")
-            return False
-
-        return True
+        return self.add_item(item["name"], item["count"])
 
     def drop(self, item_name, count=(self.max_storage * 64)):
 
