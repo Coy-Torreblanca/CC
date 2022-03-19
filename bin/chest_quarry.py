@@ -12,9 +12,9 @@ def error(message):
 class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
-        self.inventory = inv.inventory(1)  # test - should be 16
         self.chest = self.put_chest()
         self.chests = [self.chest]
+        self.inventory = inv.turtleInventory(turtle)  # test - should be 16
 
     def put_chest(self):
         # 1. check stack functionality by removing argumetn
@@ -62,30 +62,18 @@ class chest_quarry:
         block = turtle.inspect()
         if block:
             self.inventory.print()  # test
-            if not self.inventory.is_full_item(block["name"]):
-                turtle.dig()
-                self.inventory.add_item(block["name"], 1)
-            else:
+            if not self.inventory.dig():
                 if self.chest.is_full_item(block["name"]):
                     self.chest = self.put_chest()
                     if not self.chest:
-                        print("self.chest could not be created")
+                        print("chest could not be created")
                         return False
                     self.chests = self.chest + self.chests
                     # remove turn by editing put_self.chest
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
-                    for slot in range(1, 17):
-                        # TEST dont drop test
-                        turtle.select(slot)
-                        item = turtle.getItemDetail()
-                        if not item:
-                            continue
-                        name = turtle.getItemDetail()["name"]
-                        count = turtle.getItemDetail()["count"]
-                        turtle.drop()
-                        # personal invenotry not upd ated
-                        self.chest.add_item(name, count)
+                    for key in list(self.inventory.keys())[:]:
+                        self.inventory.drop(key, chest)
                     self.nav.turn_to(direction)
 
                 else:
@@ -95,15 +83,8 @@ class chest_quarry:
                         print("chest could not be reached")
                         return False
                     self.nav.turn_to(self.chest.direction)
-                    for slot in range(1, 17):
-                        turtle.select(slot)
-                        item = turtle.getItemDetail()
-                        if not item:
-                            continue
-                        name = turtle.getItemDetail()["name"]
-                        count = turtle.getItemDetail()["count"]
-                        turtle.drop()  # you don't drop from inv
-                        self.chest.add_item(name, count)
+                    for key in list(self.inventory.keys())[:]:
+                        self.inventory.drop(key, chest)
                     if not self.nav.path(position):
                         print("return position could not be reached")
                         return False
@@ -111,12 +92,7 @@ class chest_quarry:
                 block = turtle.inspect()
                 if block:
                     self.inventory.print()  # test
-                    if not self.inventory.is_full_item(block["name"]):
-                        turtle.dig()
-                        self.inventory.add_item(block["name"], 1)
-                    else:
-                        error("self.inventory full *?*")
-                        return False
+                    self.inventory.dig()
 
     def quarry(self, length, width, height):
 
