@@ -193,12 +193,14 @@ class turtleInventory(inventory):
             self.turtle.dig()
 
             print("slot ", slot, " count", count)  # test
+
             # Subtract current count and count before dig
             add_count = item["count"] - count
-            print("add count 1 ", add_count)
+
+            print("add count 1 ", add_count)  # test
 
             # Add any items that may have leaked to another slot to count
-            if item["count"] == 64:
+            if count == 64:
                 print("here")  # test
                 item = self.turtle.getItemDetail(self.current_slot)
                 if item:
@@ -213,6 +215,7 @@ class turtleInventory(inventory):
             # Unkown item won't be added to an inventory without empty slot
             return False
 
+        self.turtle.select(self.current_slot)
         self.turtle.dig()
 
         item = self.turtle.getItemDetail(self.current_slot)
