@@ -78,7 +78,6 @@ class inventory:
             return False
 
         if name not in self.items:
-
             self.items[name] = [self.current_slot, 0]
             self.current_slot += 1
 
@@ -90,7 +89,6 @@ class inventory:
             # If item slot has no space, update item storage
             if self.items[name][1] == 64:
 
-                self.current_slot += 1
                 self.items[name] = [self.current_slot, 0]
                 self.current_slot += 1
 
@@ -142,8 +140,7 @@ class turtleInventory(inventory):
 
         for slot in range(1, 17):
 
-            self.turtle.select(slot)
-            item = self.turtle.getItemDetail()
+            item = self.turtle.getItemDetail(slot)
 
             if item:
 
