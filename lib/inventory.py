@@ -213,7 +213,10 @@ class turtleInventory(inventory):
 
         item = self.turtle.getItemDetail(self.current_slot)
 
-        item_name = "" if not item else item["name"]
+        if item:
+            item_name = item["name"]
+        else:
+            item_name == ""
 
         self.db.insert_item(block["name"], item_name)
 
