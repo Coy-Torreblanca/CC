@@ -256,10 +256,12 @@ class turtleInventory(inventory):
             drop_count = item[1] if item[1] < count else count
 
             # Drop Item
-            self.turtle.select(drop_slot)
-            self.turtle.drop(drop_count)
+            if chest.is_full_item(item_name):
+                return False
             if chest:
                 chest.add_item(item_name, drop_count)
+            self.turtle.select(drop_slot)
+            self.turtle.drop(drop_count)
             count -= drop_count
 
             # Update inventory so there are no empty slots between full ones
