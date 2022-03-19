@@ -184,6 +184,9 @@ class turtleInventory(inventory):
             self.turtle.select(slot)
             self.turtle.dig()
 
+            if inventory_name == "None":
+                return True
+
             print("slot ", slot, " count", count)  # test
 
             # See amount dug into current slot
@@ -216,11 +219,11 @@ class turtleInventory(inventory):
         if item:
             item_name = item["name"]
         else:
-            item_name = ""
+            item_name = "None"
 
         self.db.insert_item(block["name"], item_name)
 
-        if not item_name:
+        if item_name == "None":
             return True
 
         current_slot_before_add = self.current_slot
