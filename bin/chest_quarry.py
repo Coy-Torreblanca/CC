@@ -23,7 +23,7 @@ class chest_quarry:
         if turtle.detect():
             self.inventory.dig()
 
-        if not self.inventory.place():
+        if not self.inventory.place("minecraft:chest"):
             error("chest could not be placed")
             return None
 
@@ -38,7 +38,7 @@ class chest_quarry:
                 self.nav.turn_right()
                 if turtle.detect():
                     self.inventory.dig()
-                if self.inventory.place():
+                if self.inventory.place("minecraft:chest"):
                     inventory_size *= 2
                     self.nav.turn_left()
                     self.nav.back()
