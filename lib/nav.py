@@ -32,6 +32,21 @@ class nav:
                         self.back()
                         return True
                 self.back()
+
+            elif self.back():
+                self.turn_left()
+                self.turn_left()
+                diff = [a - b for a, b in zip(gps.locate(), starting_position)]
+                for axis in range(2):
+                    if diff[axis] != 0:
+                        self.direction = coordinate_cardinal_map[axis][diff[axis]]
+                        self.back()
+                        self.turn_left()
+                        self.turn_left()
+                        return True
+                self.back()
+                self.turn_left()
+                self.turn_left()
         return False
 
     def call_move(self, move):
