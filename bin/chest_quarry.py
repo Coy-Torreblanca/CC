@@ -13,7 +13,7 @@ class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
         self.inventory = inv.inventory(1)  # test - should be 16
-        self.chest = self.put_chest()
+        self.put_chest()
         self.chests = [self.chest]
 
     def put_chest(self):
@@ -49,7 +49,7 @@ class chest_quarry:
                     self.nav.back()
             self.nav.turn_right()
 
-        self.inventory = inv.inventory(
+        self.chest = inv.inventory(
             1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
         self.nav.turn_left()
