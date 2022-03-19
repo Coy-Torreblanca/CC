@@ -169,6 +169,11 @@ class turtleInventory(inventory):
 
         if inventory_name:
 
+            if self.is_full_item(inventory_name):
+                return False
+
+            self.turtle.dig()
+
             return self.add_item(inventory_name)
 
         if self.is_full():
