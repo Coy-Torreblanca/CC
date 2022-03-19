@@ -175,7 +175,7 @@ class turtleInventory(inventory):
 
             if inventory_name in self.items:
 
-                item = self.items[block["name"]]
+                item = self.items[inventory_name]
                 slot = item[0]
                 count = item[1]
 
