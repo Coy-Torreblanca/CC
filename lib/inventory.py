@@ -119,7 +119,7 @@ class inventory:
 
 
 class turtleInventory(inventory):
-    def __init__(self, turtle, position, direction):
+    def __init__(self, turtle):
 
         super().__init__(16, position, direction)
         self.turtle = turtle
