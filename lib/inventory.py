@@ -193,11 +193,14 @@ class turtleInventory(inventory):
 
             item = self.turtle.getItemDetail(slot)
 
+            print("slot ", slot, " count", count)  # test
+            print(item)  # test
             # Subtract current count and count before dig
             add_count = item["count"] - count
 
             # Add any items that may have leaked to another slot to count
             if item["count"] == 64:
+                print("here")  # test
                 item = self.turtle.getItemDetail(self.current_slot)
                 if item:
                     add_count += item["count"]
