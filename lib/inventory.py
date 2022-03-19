@@ -268,8 +268,8 @@ class turtleInventory(inventory):
                     self.current_slot = drop_slot
                 else:
                     self.turtle.select(self.current_slot - 1)
-                    item_name = self.turtle.getItemDetail()["name"]
-                    self.items[item_name][0] = drop_slot
+                    tmp_item_name = self.turtle.getItemDetail()["name"]
+                    self.items[tmp_item_name][0] = drop_slot
                     self.turtle.transferTo(drop_slot)
                     self.current_slot -= 1
 
