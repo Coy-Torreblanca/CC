@@ -218,7 +218,9 @@ class turtleInventory(inventory):
 
         return self.add_item(item["name"], item["count"])
 
-    def drop(self, item_name, count=(self.max_storage * 64)):
+    def drop(self, item_name, count):
+
+        count = count or self.max_storage * 64
 
         while count:
 
