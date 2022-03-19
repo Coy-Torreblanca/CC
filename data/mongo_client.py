@@ -37,3 +37,25 @@ class dig_map(client):
         if obj:
             return obj["inventory_name"]
         return None
+
+
+def chests(client):
+    def __init__(self):
+        super().__init__()
+        self.collection = self.db.chests
+
+    def insert(self, position, direction):
+        if not position or not direction:
+            return None
+
+        item = {"position": position, "direction": direction}
+
+        return self.collection.insert_one(item).inserted_id
+
+    def remove(self, position, direction):
+        if not position or not direction:
+            return None
+
+        item = {"position": position, "direction": direction}
+
+        return self.collection.remove(item)
