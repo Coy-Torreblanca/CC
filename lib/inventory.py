@@ -213,7 +213,12 @@ class turtleInventory(inventory):
 
         item = self.turtle.getItemDetail(self.current_slot)
 
-        self.db.insert_item(block["name"], item["name"])
+        item_name = "" if not item else item["name"]
+
+        self.db.insert_item(block["name"], item_name)
+
+        if not item_name:
+            return True
 
         current_slot_before_add = self.current_slot
 
@@ -223,6 +228,8 @@ class turtleInventory(inventory):
         if current_slot_before_add == self.current_slot:
             turtle.select(self.current_slot)
             turtle.transferTo(self.items[item["name"]][0])
+
+        return to_return
 
     def drop(self, item_name, count):
 
