@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 class client:
     def __init__(self):
-        self.url = "mongodb://127.0.0.1:27017"
+        url = "mongodb://127.0.0.1:27017"
         self.client = MongoClient(url)
         self.db = client.minecraft
         self.collection = None
