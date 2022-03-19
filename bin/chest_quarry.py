@@ -56,6 +56,67 @@ def error(message):
     print(error)
 
 
+def dig():
+
+    block = turtle.inspect()
+    if block:
+        inventory.print()  # test
+        if not inventory.is_full_item(block["name"]):
+            turtle.dig()
+            inventory.add_item(block["name"], 1)
+        else:
+            if chest.is_full_item(block["name"]):
+                chest = put_chest(nav)
+                if not chest:
+                    print("chest could not be created")
+                    return False
+                chests = chest + chests
+                # remove turn by editing put_chest
+                direction = nav.direction
+                nav.turn_to(chest.direction)
+                for slot in range(1, 17):
+                    # TEST dont drop test
+                    turtle.select(slot)
+                    item = turtle.getItemDetail()
+                    if not item:
+                        continue
+                    name = turtle.getItemDetail()["name"]
+                    count = turtle.getItemDetail()["count"]
+                    turtle.drop()
+                    chest.add_item(name, count)
+                nav.turn_to(direction)
+
+            else:
+                position = nav.locate()
+                direction = nav.direction
+                if not nav.path(chest.position):
+                    print("chest could not be reached")
+                    return False
+                nav.turn_to(chest.direction)
+                for slot in range(1, 17):
+                    turtle.select(slot)
+                    item = turtle.getItemDetail()
+                    if not item:
+                        continue
+                    name = turtle.getItemDetail()["name"]
+                    count = turtle.getItemDetail()["count"]
+                    turtle.drop()  # you don't drop from inv
+                    chest.add_item(name, count)
+                if not nav.path(position):
+                    print("return position could not be reached")
+                    return False
+                nav.turn_to(direction)
+            block = turtle.inspect()
+            if block:
+                inventory.print()  # test
+                if not inventory.is_full_item(block["name"]):
+                    turtle.dig()
+                    inventory.add_item(block["name"], 1)
+                else:
+                    error("inventory full *?*")
+                    return False
+
+
 def quarry(length, width, height):
 
     if not nav.direction_test_pass:
@@ -75,65 +136,8 @@ def quarry(length, width, height):
     for z in range(height):
         for x in range(width):
             for y in range(length - 1):
-                # 2.move dig to function
-                block = turtle.inspect()
-                if block:
-                    inventory.print()  # test
-                    if not inventory.is_full_item(block["name"]):
-                        turtle.dig()
-                        inventory.add_item(block["name"], 1)
-                    else:
-                        if chest.is_full_item(block["name"]):
-                            chest = put_chest(nav)
-                            if not chest:
-                                print("chest could not be created")
-                                return False
-                            chests = chest + chests
-                            # remove turn by editing put_chest
-                            direction = nav.direction
-                            nav.turn_to(chest.direction)
-                            for slot in range(1, 17):
-                                # TEST dont drop test
-                                turtle.select(slot)
-                                item = turtle.getItemDetail()
-                                if not item:
-                                    continue
-                                name = turtle.getItemDetail()["name"]
-                                count = turtle.getItemDetail()["count"]
-                                turtle.drop()
-                                chest.add_item(name, count)
-                            nav.turn_to(direction)
 
-                        else:
-                            position = nav.locate()
-                            direction = nav.direction
-                            if not nav.path(chest.position):
-                                print("chest could not be reached")
-                                return False
-                            nav.turn_to(chest.direction)
-                            for slot in range(1, 17):
-                                turtle.select(slot)
-                                item = turtle.getItemDetail()
-                                if not item:
-                                    continue
-                                name = turtle.getItemDetail()["name"]
-                                count = turtle.getItemDetail()["count"]
-                                turtle.drop()
-                                chest.add_item(name, count)
-                            if not nav.path(position):
-                                print("return position could not be reached")
-                                return False
-                            nav.turn_to(direction)
-                        block = turtle.inspect()
-                        if block:
-                            inventory.print()  # test
-                            if not inventory.is_full_item(block["name"]):
-                                turtle.dig()
-                                inventory.add_item(block["name"], 1)
-                            else:
-                                error("inventory full *?*")
-                                return False
-
+                dig()
                 if not nav.forward():
                     print("cannot move forward *?*")
                     return False
@@ -144,57 +148,7 @@ def quarry(length, width, height):
 
                 turn()
 
-                block = turtle.inspect()
-                if block:
-                    # debug
-                    inventory.print()
-                    if not inventory.is_full_item(block["name"]):
-                        turtle.dig()
-                        inventory.add_item(block["name"], 1)
-                    else:
-                        if chest.is_full_item(block["name"]):
-                            chest = put_chest(nav)
-                            if not chest:
-                                print("could not place chest")
-                                return False
-                            chests = chest + chests
-                            # remove turn by editing put_chest
-                            direction = nav.direction
-                            nav.turn_to(chest.direction)
-                            for slot in range(1, 17):
-                                turtle.select(slot)
-                                name = turtle.getItemDetail()["name"]
-                                count = turtle.getItemDetail()["count"]
-                                turtle.drop()
-                                chest.add_item(name, count)
-                            nav.turn_to(direction)
-
-                        else:
-                            position = nav.locate()
-                            direction = nav.direction
-                            if not nav.path(chest.position):
-                                print("could not path to chest")
-                                return False
-                            nav.turn_to(chest.direction)
-                            for slot in range(1, 17):
-                                turtle.select(slot)
-                                name = turtle.getItemDetail()["name"]
-                                count = turtle.getItemDetail()["count"]
-                                turtle.drop()
-                                chest.add_item(name, count)
-                            if not nav.path(position):
-                                print("could not move back to position")
-                                return False
-                            nav.turn_to(direction)
-                        block = turtle.inspect()
-                        if block:
-                            inventory.print()  # test
-                            if not inventory.is_full_item(block["name"]):
-                                turtle.dig()
-                                inventory.add_item(block["name"], 1)
-                            else:
-                                error("inventory full *?*")
-                                return False
+                dig()
 
                 if not nav.forward():
                     print("could not move forward *?*")
@@ -203,7 +157,7 @@ def quarry(length, width, height):
                 turn()
 
         if z != height - 1:
-            if turtle.detectDown():
+            if turtle.detectDown():  # replace with dig function
                 turtle.digDown()
 
             if not nav.down():
