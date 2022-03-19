@@ -68,7 +68,7 @@ class chest_quarry:
                     if not self.chest:
                         print("chest could not be created")
                         return False
-                    self.chests = self.chest + self.chests
+                    self.chests = [self.chest] + self.chests
                     # remove turn by editing put_self.chest
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
