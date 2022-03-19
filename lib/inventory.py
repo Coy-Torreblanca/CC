@@ -239,7 +239,7 @@ class turtleInventory(inventory):
 
         return to_return
 
-    def drop(self, item_name, count=None, chest=None):
+    def drop(self, item_name, chest=None, count=None):
 
         count = count or self.max_storage * 64
 
@@ -284,8 +284,3 @@ class turtleInventory(inventory):
 
             if not count:
                 return True
-            # if item current slot is empty,
-            # go to current  slot - 1
-            # move items from there to emptyd slot
-            # update item dictionary
-            # current slot -= 1
