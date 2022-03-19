@@ -237,13 +237,13 @@ class turtleInventory(inventory):
 
         return to_return
 
-    def drop(self, item_name, count, chest=None):
+    def drop(self, item_name, count=None, chest=None):
 
         count = count or self.max_storage * 64
 
         while count:
 
-            if item not in self.items:
+            if item_name not in self.items:
                 return True
 
             item = self.items[item_name]
