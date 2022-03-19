@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from cc import turtle, import_file
 
-nav = import_file("/lib/nav.py").nav()
+nav = import_file("/lib/nav.py")
 inv = import_file("/lib/inventory.py")
 
 
@@ -10,6 +10,12 @@ def error(message):
 
 
 class chest_quarry:
+    def __init__(self):
+        self.nav = nav.nav()
+        self.inventory = inv.inventory(1)  # test - should be 16
+        self.chest = put_chest()
+        self.chests = [chest]
+
     def put_chest(self):
         # 1. check stack functionality by removing argumetn
         if not inv.search("minecraft:chest"):
@@ -44,7 +50,7 @@ class chest_quarry:
             self.nav.turn_right()
 
         self.inventory = inv.inventory(
-            1, self.nav.locate(), nav.direction
+            1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
         self.nav.turn_left()
         self.nav.turn_left()
@@ -61,7 +67,7 @@ class chest_quarry:
                 self.inventory.add_item(block["name"], 1)
             else:
                 if self.chest.is_full_item(block["name"]):
-                    self.chest = self.put_chest(self.nav)
+                    self.chest = self.put_chest()
                     if not self.chest:
                         print("self.chest could not be created")
                         return False
@@ -114,38 +120,38 @@ class chest_quarry:
 
     def quarry(self, length, width, height):
 
-        if not nav.direction_test_pass:
+        if not self.nav.direction_test_pass:
             error("direction test pass failed")
             return False
-
-        self.inventory = inv.inventory(1)  # test - should be 16
-        self.chest = put_chest(nav)
-        self.chests = [chest]
 
         if not self.chest:
             print("chest could not be placed")
             return False
 
-        turn = nav.turn_left
+        turn = self.nav.turn_left
 
         for z in range(height):
             for x in range(width):
                 for y in range(length - 1):
 
                     dig()
-                    if not nav.forward():
+                    if not self.nav.forward():
                         print("cannot move forward *?*")
                         return False
 
                 if x != width - 1:
 
-                    turn = nav.turn_right if turn == nav.turn_left else nav.turn_left
+                    turn = (
+                        self.nav.turn_right
+                        if turn == self.nav.turn_left
+                        else self.nav.turn_left
+                    )
 
                     turn()
 
                     dig()
 
-                    if not nav.forward():
+                    if not self.nav.forward():
                         print("could not move forward *?*")
                         return False
 
@@ -155,7 +161,7 @@ class chest_quarry:
                 if turtle.detectDown():  # replace with dig function
                     turtle.digDown()
 
-                if not nav.down():
+                if not self.nav.down():
                     print("could not move down")
                     return False
 
