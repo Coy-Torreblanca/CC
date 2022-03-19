@@ -4,6 +4,7 @@ from cc import turtle, import_file
 nav = import_file("/lib/nav.py")
 inv = import_file("/lib/inventory.py")
 chests = import_file("/data/mongo_client.py")
+refuel = import_file("/lib/fuel.py").refuel
 
 
 def error(message):
@@ -17,7 +18,7 @@ if len(args) < 3:
 else:
     length, width, height = [int(x) for x in args[:3]]
     quarry = chest_quarry()
-    quarry.quarry(length, width, height, False)
+    quarry.quarry(length, width, height, True)
 
 
 class chest_quarry:
@@ -82,6 +83,7 @@ class chest_quarry:
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
                     for key in list(self.inventory.keys())[:]:
+                        refuel()
                         if key != "minecraft:chest":
                             self.inventory.drop(key, chest)
                     self.nav.turn_to(direction)
@@ -95,6 +97,7 @@ class chest_quarry:
                     self.nav.turn_to(self.chest.direction)
                     for key in list(self.inventory.keys())[:]:
                         if key != "minecraft:chest":
+                            refuel()
                             self.inventory.drop(key, chest)
                     if not self.nav.path(position):
                         print("return position could not be reached")
