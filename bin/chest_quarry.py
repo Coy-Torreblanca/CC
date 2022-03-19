@@ -3,10 +3,21 @@ from cc import turtle, import_file
 
 nav = import_file("/lib/nav.py")
 inv = import_file("/lib/inventory.py")
+chests = import_file("/data/mongo_client.py")
 
 
 def error(message):
     print(error)
+
+
+# passing args is not working
+args = [64, 64, 64]  # test
+if len(args) < 3:
+    print("usage: quarry <length> <width> <height>")
+else:
+    length, width, height = [int(x) for x in args[:3]]
+    quarry = chest_quarry()
+    quarry.quarry(length, width, height, False)
 
 
 class chest_quarry:
@@ -14,9 +25,10 @@ class chest_quarry:
         self.nav = nav.nav()
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
         self.chest = self.put_chest()
-        self.chests = [self.chest]
+        self.db = chests()
+        self.job = "chest_quarry_" + self.nav.locate()
 
-    def put_chest(self):
+    def put_chest(self, record):
         self.nav.turn_left()
         self.nav.turn_left()
 
@@ -47,6 +59,9 @@ class chest_quarry:
         inventory = inv.inventory(
             1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
+        if record:
+            self.chest.insert(self.nav.locate(), self.nav.direction, self.job)
+
         self.nav.turn_left()
         self.nav.turn_left()
 
@@ -63,7 +78,6 @@ class chest_quarry:
                     if not self.chest:
                         print("chest could not be created")
                         return False
-                    self.chests = [self.chest] + self.chests
                     # remove turn by editing put_self.chest
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
@@ -143,14 +157,3 @@ class chest_quarry:
                 turn()
                 turn()
         return True
-
-
-# passing args is not working
-args = [6, 6, 6]  # test
-
-if len(args) < 3:
-    print("usage: quarry <length> <width> <height>")
-else:
-    length, width, height = [int(x) for x in args[:3]]
-    quarry = chest_quarry()
-    quarry.quarry(length, width, height)
