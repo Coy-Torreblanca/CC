@@ -26,14 +26,14 @@ class dig_map(client):
 
     def find_inspect(self, inventory_name):
         item = {"inventory_name": inventory_name}
-        self.collection.fine_one(item)
+        self.collection.find_one(item)
         if obj:
             return obj["inspect_name"]
         return None
 
     def find_inventory(self, inspect_name):
         item = {"inspect_name": inspect_name}
-        obj = self.collection.fine_one(item)
+        obj = self.collection.find_one(item)
         if obj:
             return obj["inventory_name"]
         return None
