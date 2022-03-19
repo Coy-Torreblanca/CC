@@ -127,6 +127,8 @@ class turtleInventory(inventory):
     def search(self, item_name):
         for slot in range(self.max_storage, 0, -1):
             item = self.turtle.getItemDetail(slot)
+            if not item:
+                continue
             if item_name == item["name"]:
                 return slot
         return None
