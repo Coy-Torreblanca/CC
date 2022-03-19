@@ -216,7 +216,7 @@ class turtleInventory(inventory):
         if item:
             item_name = item["name"]
         else:
-            item_name == ""
+            item_name = ""
 
         self.db.insert_item(block["name"], item_name)
 
