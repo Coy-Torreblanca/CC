@@ -173,16 +173,11 @@ class turtleInventory(inventory):
             if self.is_full_item(inventory_name):
                 return False
 
-            if inventory_name in self.items:
+            if inventory_name in self.items and self.items[inventory_name][1] != 64:
 
                 item = self.items[inventory_name]
                 slot = item[0]
                 count = item[1]
-
-                if count == 64:
-
-                    slot = self.current_slot
-                    count = 0
 
             else:
 
@@ -194,7 +189,8 @@ class turtleInventory(inventory):
 
             print("slot ", slot, " count", count)  # test
 
-            # Subtract current count and count before dig
+            # See amount dug into current slot
+            item = self.turtle.getItemDetail(slot)
             add_count = item["count"] - count
 
             print("add count 1 ", add_count)  # test
