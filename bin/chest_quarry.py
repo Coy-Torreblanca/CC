@@ -12,13 +12,13 @@ def error(message):
 class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
+        self.inventory = inv.turtleInventory(turtle)  # test - should be 16
         self.chest = self.put_chest()
         self.chests = [self.chest]
-        self.inventory = inv.turtleInventory(turtle)  # test - should be 16
 
     def put_chest(self):
         # 1. check stack functionality by removing argumetn
-        if not inv.search("minecraft:chest"):
+        if not self.inventory.search("minecraft:chest"):
             error("No chest to place")
             return None
 
@@ -34,7 +34,7 @@ class chest_quarry:
 
         inventory_size = 27
 
-        if inv.search("minecraft:chest"):
+        if self.inventory.search("minecraft:chest"):
             self.nav.turn_left()
             if turtle.detect():
                 turtle.dig()
