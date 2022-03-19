@@ -121,7 +121,7 @@ class inventory:
 class turtleInventory(inventory):
     def __init__(self, turtle):
 
-        super().__init__(16, position, direction)
+        super().__init__(16)
         self.turtle = turtle
         self.db = mongo.dig_map()
 
