@@ -124,6 +124,7 @@ class turtleInventory(inventory):
         super().__init__(16)
         self.turtle = turtle
         self.db = mongo.dig_map()
+        self.check_turtle_inventory()
 
     def search(self, item_name):
         for slot in range(self.max_storage, 0, -1):
