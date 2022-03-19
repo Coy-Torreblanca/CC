@@ -39,23 +39,23 @@ class dig_map(client):
         return None
 
 
-def chests(client):
+class chests(client):
     def __init__(self):
         super().__init__()
         self.collection = self.db.chests
 
-    def insert(self, position, direction):
+    def insert(self, position, direction, job):
         if not position or not direction:
             return None
 
-        item = {"position": position, "direction": direction}
+        item = {"position": position, "direction": direction, "job": job}
 
         return self.collection.insert_one(item).inserted_id
 
-    def remove(self, position, direction):
+    def remove(self, position, direction, job):
         if not position or not direction:
             return None
 
-        item = {"position": position, "direction": direction}
+        item = {"position": position, "direction": direction, "job": job}
 
         return self.collection.remove(item)
