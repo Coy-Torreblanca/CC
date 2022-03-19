@@ -14,7 +14,7 @@ class client:
 class dig_map(client):
     def __init__(self):
         super().__init__()
-        self.collection = self.collection.dig_map
+        self.collection = self.db.dig_map
 
     def insert_item(self, inspect_name, inventory_name):
         if not inspect_name or not inventory_name:
