@@ -21,7 +21,7 @@ class chest_quarry:
         self.nav.turn_left()
 
         if turtle.detect():
-            turtle.dig()
+            self.inventory.dig()
 
         if not self.inventory.place():
             error("chest could not be placed")
@@ -37,7 +37,7 @@ class chest_quarry:
             if self.nav.forward():
                 self.nav.turn_right()
                 if turtle.detect():
-                    turtle.dig()
+                    self.inventory.dig()
                 if self.inventory.place():
                     inventory_size *= 2
                     self.nav.turn_left()
@@ -68,7 +68,8 @@ class chest_quarry:
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
                     for key in list(self.inventory.keys())[:]:
-                        self.inventory.drop(key, chest)
+                        if key != "minecraft:chest":
+                            self.inventory.drop(key, chest)
                     self.nav.turn_to(direction)
 
                 else:
@@ -79,7 +80,8 @@ class chest_quarry:
                         return False
                     self.nav.turn_to(self.chest.direction)
                     for key in list(self.inventory.keys())[:]:
-                        self.inventory.drop(key, chest)
+                        if key != "minecraft:chest":
+                            self.inventory.drop(key, chest)
                     if not self.nav.path(position):
                         print("return position could not be reached")
                         return False
