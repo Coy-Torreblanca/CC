@@ -110,7 +110,8 @@ class chest_quarry:
             for x in range(width):
                 for y in range(length - 1):
 
-                    self.dig()
+                    while turtle.detect():
+                        self.dig()
                     if not self.nav.forward():
                         print("cannot move forward *?*")
                         return False
@@ -125,7 +126,8 @@ class chest_quarry:
 
                     turn()
 
-                    self.dig()
+                    while turtle.detect():
+                        self.dig()
 
                     if not self.nav.forward():
                         print("could not move forward *?*")
