@@ -240,10 +240,10 @@ class turtleInventory(inventory):
 
         while count:
 
-            item = self.items[item_name]
-
-            if item not in self.items[item_name]:
+            if item not in self.items:
                 return True
+
+            item = self.items[item_name]
 
             # Get slot of item to drop
             drop_slot = item[0]
@@ -256,12 +256,13 @@ class turtleInventory(inventory):
             count -= drop_count
 
             # Update inventory so there are no empty slots between full ones
-            if self.current_slot - 1 == drop_slot:
-                self.current_slot = drop_slot
-            else:
-                self.turtle.select(self.current_slot - 1)
-                self.turtle.transferTo(drop_slot)
-                self.current_slot -= 1
+            if not self.turtle.getItemCount(drop_slot):
+                if self.current_slot - 1 == drop_slot:
+                    self.current_slot = drop_slot
+                else:
+                    self.turtle.select(self.current_slot - 1)
+                    self.turtle.transferTo(drop_slot)
+                    self.current_slot -= 1
 
             # Update inventory dictionary
             slot = self.search(item_name)
