@@ -222,7 +222,7 @@ class turtleInventory(inventory):
         # If the current slot hasn't changed then the item was added to an existing slot
         if current_slot_before_add == self.current_slot:
             turtle.select(self.current_slot)
-            turtle.transferTo(self.items[item["name"][0]])
+            turtle.transferTo(self.items[item["name"]][0])
 
     def drop(self, item_name, count):
 
