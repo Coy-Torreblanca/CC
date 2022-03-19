@@ -13,8 +13,8 @@ class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
         self.inventory = inv.inventory(1)  # test - should be 16
-        self.chest = put_chest()
-        self.chests = [chest]
+        self.chest = self.put_chest()
+        self.chests = [self.chest]
 
     def put_chest(self):
         # 1. check stack functionality by removing argumetn
