@@ -17,18 +17,13 @@ class chest_quarry:
         self.chests = [self.chest]
 
     def put_chest(self):
-        # 1. check stack functionality by removing argumetn
-        if not self.inventory.search("minecraft:chest"):
-            error("No chest to place")
-            return None
-
         self.nav.turn_left()
         self.nav.turn_left()
 
         if turtle.detect():
             turtle.dig()
 
-        if not turtle.place():
+        if not inventory.place():
             error("chest could not be placed")
             return None
 
@@ -43,7 +38,7 @@ class chest_quarry:
                 self.nav.turn_right()
                 if turtle.detect():
                     turtle.dig()
-                if turtle.place():
+                if inventory.place():
                     inventory_size *= 2
                     self.nav.turn_left()
                     self.nav.back()

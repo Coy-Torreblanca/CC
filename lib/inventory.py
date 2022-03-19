@@ -284,3 +284,50 @@ class turtleInventory(inventory):
 
             if not count:
                 return True
+
+    def place(self, item_name):
+
+        count = 1
+
+        while count:
+
+            if item_name not in self.items:
+                return True
+
+            item = self.items[item_name]
+
+            # Get slot of item to drop
+            drop_slot = item[0]
+            # Calculate number to drop from this slot
+            drop_count = item[1] if item[1] < count else count
+
+            # Drop Item
+            self.turtle.select(drop_slot)
+            if not self.turtle.place():
+                return False
+            if chest:
+                chest.add_item(item_name, drop_count)
+            count -= drop_count
+
+            # Update inventory so there are no empty slots between full ones
+            if not self.turtle.getItemCount(drop_slot):
+                if self.current_slot - 1 == drop_slot:
+                    self.current_slot = drop_slot
+                else:
+                    self.turtle.select(self.current_slot - 1)
+                    tmp_item_name = self.turtle.getItemDetail()["name"]
+                    self.items[tmp_item_name][0] = drop_slot
+                    self.turtle.transferTo(drop_slot)
+                    self.current_slot -= 1
+
+            # Update inventory dictionary
+            slot = self.search(item_name)
+            if not slot:
+                del self.items[item_name]
+                return True
+            else:
+                item = turtle.getItemDetail(slot)
+                self.items[item_name] = [slot, item["count"]]
+
+            if not count:
+                return True
