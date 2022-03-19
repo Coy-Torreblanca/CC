@@ -12,7 +12,8 @@ FILES = {
     "/bin/chest_quarry.py",
     "/bin/quarry.py",
     "/data/trees.py",
-    "/data/nav.py"
+    "/data/nav.py",
+    "/data/mongo_client.py"
 }
 
 
