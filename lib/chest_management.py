@@ -53,7 +53,7 @@ class chest_management:
         return inventory
 
     def drop_into_chest(
-        self, new_chest_direction, new_chest_location, item_item, double, drop_exception
+        self, new_chest_direction, new_chest_location, item_name, double, drop_exception
     ):
         starting_position = self.nav.locate()
         starting_direction = self.nav.direction
