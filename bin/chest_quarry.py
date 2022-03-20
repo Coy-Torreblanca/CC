@@ -20,7 +20,7 @@ class chest_quarry:
         self.db = data.dig_map()
         self.job = "chest_quarry_" + str(self.nav.locate())
         self.chest_management = chest_management.chest_management(
-            self.job, self.nav, self.inventory, self.turtle
+            self.job, self.nav, self.inventory, turtle
         )
 
     def dig(self, turtle_direction):
