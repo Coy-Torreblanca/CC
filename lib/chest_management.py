@@ -9,16 +9,17 @@ move_to_inspect, move_to_dig = import_file("/data/movement.py").get_data()
 
 
 class chest_management:
-    def __init__(self, job, nav, inventory):
+    def __init__(self, job, nav, inventory, turtle):
         self.nav = nav
         self.db = chests.chests()
         self.job = job + "_" + str(self.nav.locate())
         self.chest = self.put_chest(self.job)
         self.inventory = inventory
+        self.turtle = turtle
 
     def put_chest(self, double):
 
-        if turtle.detect():
+        if self.turtle.detect():
             self.inventory.dig()
 
         if not self.inventory.place("minecraft:chest"):
@@ -30,12 +31,12 @@ class chest_management:
 
             if self.inventory.search("minecraft:chest"):
                 self.nav.turn_left()
-                if turtle.detect():
-                    turtle.dig()
+                if self.turtle.detect():
+                    self.turtle.dig()
 
                 if self.nav.forward():
                     self.nav.turn_right()
-                    if turtle.detect():
+                    if self.turtle.detect():
                         self.inventory.dig()
                     if self.inventory.place("minecraft:chest"):
                         inventory_size *= 2
