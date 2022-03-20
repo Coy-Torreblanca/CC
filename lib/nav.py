@@ -23,9 +23,9 @@ class nav:
         # west is negative x
         # north is negative z
         # xzy
-        starting_position = self.locate()
+        starting_position = gps.locate()
 
-        if not starting_position:
+        if starting_position:
 
             if self.forward():
                 diff = [a - b for a, b in zip(gps.locate(), starting_position)]
