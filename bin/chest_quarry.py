@@ -49,7 +49,7 @@ class chest_quarry:
 
                 if not self.chest_management.drop_into_chest(
                     new_direction,
-                    location,
+                    new_location,
                     inventory_name,
                     False,
                     {"minecraft:chest": "None"},
