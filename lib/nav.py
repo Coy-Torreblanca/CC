@@ -164,5 +164,5 @@ class nav:
 
     def get_opposite_direction(self):
         coordinates = cardinal_coordinate_map[self.direction]
-        new_direction_axis = -1 if coordinates["axis"] == 1 else 1
-        return coordinate_cardinal_map[coordinates["axis"]][new_direction_axis]
+        new_direction_direction = -1 if coordinates["direction"] == 1 else 1
+        return coordinate_cardinal_map[coordinates["axis"]][new_direction_direction]
