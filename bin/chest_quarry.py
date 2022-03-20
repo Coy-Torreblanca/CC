@@ -20,7 +20,7 @@ class chest_quarry:
         self.nav = nav.nav()
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
         self.db = chests.chests()
-        self.job = "chest_quarry_" + self.nav.locate()
+        self.job = "chest_quarry_" + str(self.nav.locate())
         self.chest = self.put_chest()
 
     def put_chest(self):
