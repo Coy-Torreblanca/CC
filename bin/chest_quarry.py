@@ -54,7 +54,7 @@ class chest_quarry:
         inventory = inv.inventory(
             1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
-        self.chest.insert(self.nav.locate(), self.nav.direction, self.job)
+        self.db.insert(self.nav.locate(), self.nav.direction, self.job)
 
         self.nav.turn_left()
         self.nav.turn_left()
