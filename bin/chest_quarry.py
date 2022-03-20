@@ -3,9 +3,10 @@ from cc import turtle, import_file
 
 nav = import_file("/lib/nav.py")
 inv = import_file("/lib/inventory.py")
-chests = import_file("/data/mongo_client.py")
 refuel = import_file("/lib/fuel.py").refuel
 move_to_inspect, move_to_dig = import_file("/data/movement.py").get_data()
+data = import_file("/data/mongo_client.py")
+chest_management = import_file("/lib/chest_management.py")
 
 
 # passing args is not working
@@ -16,34 +17,9 @@ class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
-        self.db = chests.chests()
+        self.db = data.dig_map()
         self.job = "chest_quarry_" + str(self.nav.locate())
-        self.chest = self.put_chest(self.job)
-
-    def put_chest(self, job):
-        self.nav.turn_left()
-        self.nav.turn_left()
-
-        block = turtle.inspect()
-        if block:
-            if self.inventory.is_full_item(block["name"]):
-                turtle.dig()
-            else:
-                self.inventory.dig(turtle.forward)
-
-        if not self.inventory.place("minecraft:chest"):
-            print("chest could not be placed")
-            return None
-
-        inventory = inv.inventory(
-            1, self.nav.locate(), self.nav.direction
-        )  # test - should be inventory_size
-        self.db.insert(self.nav.locate(), self.nav.direction, job)
-
-        self.nav.turn_left()
-        self.nav.turn_left()
-
-        return inventory
+        self.chest_management = chest_management(self.job, self.nav, self.inventory)
 
     def dig(self, turtle_direction):
 
@@ -51,41 +27,28 @@ class chest_quarry:
         if block:
             self.inventory.print()  # test
             if not self.inventory.dig(turtle_direction):
-                if self.chest.is_full_item(block["name"]):
-                    print("creating new chest")
-                    self.chest = self.put_chest(self.job)
-                    if not self.chest:
-                        print("chest could not be created")
-                        return False
-                    # remove turn by editing put_self.chest
-                    direction = self.nav.direction
-                    self.nav.turn_to(self.chest.direction)
-                    refuel()
-                    print("dropping")
-                    for key in list(self.inventory.items.keys())[:]:
-                        if key != "minecraft:chest":
-                            self.inventory.drop(key, self.chest)
-                    self.nav.turn_to(direction)
-                    print("returning to original position")
 
-                else:
-                    print("going back to chest")
-                    position = self.nav.locate()
-                    direction = self.nav.direction
-                    if not self.nav.path(self.chest.position):
-                        print("chest could not be reached")
-                        return False
-                    self.nav.turn_to(self.chest.direction)
-                    refuel()
-                    print("dropping")
-                    for key in list(self.inventory.items.keys())[:]:
-                        if key != "minecraft:chest":
-                            self.inventory.drop(key, self.chest)
-                    if not self.nav.path(position):
-                        print("return position could not be reached")
-                        return False
-                    self.nav.turn_to(direction)
-                    print("returned to original position")
+                inventory_name = self.db.find_inventory(block["name"])
+                inventory_name = inventory_name or block["name"]
+
+                new_cardinal = nav.get_opposite_direction()
+
+                cardinal_directions = nav.get_cardinal_directions()
+                axis = cardinal_directions["axis"]
+                direction = cardinal_directions["direction"]
+                new_direction = -1 if direction == 1 else direction
+                new_location = nav.locate()
+                location[axis] += new_direction
+
+                if not self.chest_management.drop_into_chest(
+                    new_direction,
+                    location,
+                    inventory_name,
+                    False,
+                    {"minecraft:chest": "None"},
+                ):
+                    return False
+
                 block = move_to_inspect[turtle_direction]()
                 if block:
                     self.inventory.print()  # test
@@ -99,7 +62,7 @@ class chest_quarry:
             print("direction test pass failed")
             return False
 
-        if not self.chest:
+        if not self.chest_management.chest:
             print("chest could not be placed")
             return False
 

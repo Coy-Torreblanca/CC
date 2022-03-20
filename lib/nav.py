@@ -4,9 +4,12 @@ from cc import turtle, import_file, gps
 
 # globals
 refuel = import_file("/lib/fuel.py").refuel
-direction_map, refuel_cost, coordinate_cardinal_map = import_file(
-    "data/nav.py"
-).get_data()
+(
+    direction_map,
+    refuel_cost,
+    coordinate_cardinal_map,
+    cardinal_coordinate_map,
+) = import_file("data/nav.py").get_data()
 
 
 class nav:
@@ -22,7 +25,7 @@ class nav:
         # xzy
         starting_position = gps.locate()
 
-        if starting_position[0] is not None:
+        if not starting_position:
 
             if self.forward():
                 diff = [a - b for a, b in zip(gps.locate(), starting_position)]
@@ -155,3 +158,11 @@ class nav:
                             return False
             return True
         return True
+
+    def get_cardinal_coordinates(self):
+        return cardinal_coordinate_map[self.direction]
+
+    def get_opposite_direction(self):
+        coordinates = cardinal_coordinate_map[self.direction]
+        new_direction_axis = -1 if coordinates["axis"] == 1 else 1
+        return coordinate_cardinal_map[coordinates["axis"]][coordinates["direction"]]

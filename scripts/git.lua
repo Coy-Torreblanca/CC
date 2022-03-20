@@ -7,6 +7,7 @@ FILES = {
     "/lib/nav.py",
     "/lib/inventory.py",
     "/lib/dig.py",
+    "/lib/chest_management.py",
     "/bin/refuel.py",
     "/bin/kill_tree.py",
     "/bin/chest_quarry.py",
