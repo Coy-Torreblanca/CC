@@ -19,7 +19,9 @@ class chest_quarry:
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
         self.db = data.dig_map()
         self.job = "chest_quarry_" + str(self.nav.locate())
-        self.chest_management = chest_management(self.job, self.nav, self.inventory)
+        self.chest_management = chest_management.chest_management(
+            self.job, self.nav, self.inventory
+        )
 
     def dig(self, turtle_direction):
 
