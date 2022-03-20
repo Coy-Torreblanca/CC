@@ -24,7 +24,7 @@ class chest_quarry:
         )
 
         self.nav.turn_to(self.nav.get_opposite_direction())
-        chest = self.chest_management.put_chest(self, False)
+        chest = self.chest_management.put_chest(False)
         self.chest_management.chest = chest
         self.nav.turn_to(self.nav.get_opposite_direction())
 
