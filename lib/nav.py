@@ -52,8 +52,26 @@ class nav:
     def call_move(self, move):
 
         try:
-            if move():
-                return True
+            # If move failed there is a mob in the way
+            if move == turtle.back and not move():
+                self.turn_left()
+                self.turn_left()
+                move = turtle.forward
+                while not move() and not turtle.detect():
+                    turtle.attack()
+                self.turn_left()
+                self.turn_left()
+
+            else:
+                # Add all directions
+                while not move() and not turtle.detect():
+                    if move == turtle.forward:
+                        turtle.attack()
+                    elif move == turtle.up:
+                        turtle.attackUp()
+                    elif move == turtle.down():
+                        turtle.attackDown()
+            return True
 
         except BaseException as error:
             refuel()
