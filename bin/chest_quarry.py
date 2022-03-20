@@ -23,7 +23,7 @@ class chest_quarry:
         self.job = "chest_quarry_" + str(self.nav.locate())
         self.chest = self.put_chest()
 
-    def put_chest(self):
+    def put_chest(self, job):
         self.nav.turn_left()
         self.nav.turn_left()
 
@@ -54,7 +54,7 @@ class chest_quarry:
         inventory = inv.inventory(
             1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
-        self.db.insert(self.nav.locate(), self.nav.direction, self.job)
+        self.db.insert(self.nav.locate(), self.nav.direction, job)
 
         self.nav.turn_left()
         self.nav.turn_left()
@@ -68,7 +68,7 @@ class chest_quarry:
             self.inventory.print()  # test
             if not self.inventory.dig():
                 if self.chest.is_full_item(block["name"]):
-                    self.chest = self.put_chest()
+                    self.chest = self.put_chest(self.job)
                     if not self.chest:
                         print("chest could not be created")
                         return False
@@ -160,4 +160,4 @@ if len(args) < 3:
 else:
     length, width, height = [int(x) for x in args[:3]]
     quarry = chest_quarry()
-    quarry.quarry(length, width, height, True)
+    quarry.quarry(length, width, height)
