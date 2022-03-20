@@ -23,7 +23,7 @@ class nav:
         # west is negative x
         # north is negative z
         # xzy
-        starting_position = gps.locate()
+        starting_position = self.locate()
 
         if not starting_position:
 
