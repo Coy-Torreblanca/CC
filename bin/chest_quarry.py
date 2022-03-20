@@ -25,7 +25,7 @@ class chest_quarry:
         self.nav.turn_left()
 
         if turtle.detect():
-            self.inventory.dig()
+            self.inventory.dig(turtle.forward)
 
         if not self.inventory.place("minecraft:chest"):
             print("chest could not be placed")
@@ -46,7 +46,7 @@ class chest_quarry:
         block = move_to_inspect[direction]()
         if block:
             self.inventory.print()  # test
-            if not self.inventory.dig():
+            if not self.inventory.dig(direction):
                 if self.chest.is_full_item(block["name"]):
                     print("creating new chest")
                     self.chest = self.put_chest(self.job)
