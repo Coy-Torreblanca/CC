@@ -56,6 +56,7 @@ class inventory:
         if self.current_slot > self.max_storage:
             if name in self.items:
                 return self.items[name][1] == 64
+            return True
         return False
 
     def add_item(self, name, count=1):
