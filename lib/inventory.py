@@ -197,9 +197,8 @@ class turtleInventory(inventory):
             return self.add_item(inventory_name, add_count)
 
         # Unkown item won't be added to an inventory without empty slot
-        for slot in range(1, 17):
-            if turtle.getItemDetail(slot):
-                return False
+        if self.current_slot > self.max_storage:
+            return False
 
         self.turtle.select(self.current_slot)
         self.turtle.dig()
