@@ -145,11 +145,7 @@ class turtleInventory(inventory):
                     error("adding item to inventory failed")
                     return False
 
-                return True
-
-            else:
-
-                return True
+        return True
 
     def dig(self):
 
