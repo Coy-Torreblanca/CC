@@ -64,6 +64,7 @@ class chest_quarry:
             self.inventory.print()  # test
             if not self.inventory.dig():
                 if self.chest.is_full_item(block["name"]):
+                    print("creating new chest")
                     self.chest = self.put_chest(self.job)
                     if not self.chest:
                         print("chest could not be created")
@@ -72,12 +73,15 @@ class chest_quarry:
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
                     refuel()
+                    print("dropping")
                     for key in list(self.inventory.items.keys())[:]:
                         if key != "minecraft:chest":
                             self.inventory.drop(key, self.chest)
                     self.nav.turn_to(direction)
+                    print("returning to original position")
 
                 else:
+                    print("going back to chest")
                     position = self.nav.locate()
                     direction = self.nav.direction
                     if not self.nav.path(self.chest.position):
@@ -85,6 +89,7 @@ class chest_quarry:
                         return False
                     self.nav.turn_to(self.chest.direction)
                     refuel()
+                    print("dropping")
                     for key in list(self.inventory.items.keys())[:]:
                         if key != "minecraft:chest":
                             self.inventory.drop(key, self.chest)
@@ -92,6 +97,7 @@ class chest_quarry:
                         print("return position could not be reached")
                         return False
                     self.nav.turn_to(direction)
+                    print("returned to original position")
                 block = turtle.inspect()
                 if block:
                     self.inventory.print()  # test
