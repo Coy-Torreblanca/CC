@@ -32,14 +32,6 @@ def search(search_item):
         return False
 
 
-def is_full():
-    for i in range(1, 17):
-        turtle.select(slot)
-        if not turtle.getItemDetail():
-            return False
-    return True
-
-
 def error(message):
     print(message)
 
@@ -62,14 +54,13 @@ class inventory:
                 if count < 64:
                     return False
             return True
-        return False
+        return True
 
     def is_full_item(self, name):
         if self.current_slot > self.max_storage:
             if name in self.items:
                 return self.items[name][1] == 64
-            return True
-        return False
+        return True
 
     def add_item(self, name, count=1):
         # TODO use dictionary for slot details
