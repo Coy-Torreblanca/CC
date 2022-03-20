@@ -52,8 +52,9 @@ class nav:
     def call_move(self, move):
 
         try:
-            if move():
-                return True
+            while not move() and not turtle.detect():
+                continue
+            return True
         # try:
         ## If move failed there is a mob in the way
         # if move == turtle.back and not move():
