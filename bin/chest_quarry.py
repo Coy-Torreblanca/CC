@@ -112,12 +112,14 @@ class chest_quarry:
             print("chest could not be placed")
             return False
 
+        print("turning")
         turn = self.nav.turn_left
 
         for z in range(height):
             for x in range(width):
                 for y in range(length - 1):
 
+                    print("detecting")
                     while turtle.detect():
                         print("beg. quarrying dig")
                         self.dig()
