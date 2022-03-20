@@ -7,10 +7,6 @@ chests = import_file("/data/mongo_client.py")
 refuel = import_file("/lib/fuel.py").refuel
 
 
-def error(message):
-    print(error)
-
-
 # passing args is not working
 args = [64, 64, 64]  # test
 
@@ -31,7 +27,7 @@ class chest_quarry:
             self.inventory.dig()
 
         if not self.inventory.place("minecraft:chest"):
-            error("chest could not be placed")
+            print("chest could not be placed")
             return None
 
         inventory_size = 27
@@ -105,7 +101,7 @@ class chest_quarry:
 
         print("beg. quarrying...")
         if not self.nav.direction_test_pass:
-            error("direction test pass failed")
+            print("direction test pass failed")
             return False
 
         if not self.chest:

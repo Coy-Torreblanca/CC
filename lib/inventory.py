@@ -32,10 +32,6 @@ def search(search_item):
         return False
 
 
-def error(message):
-    print(message)
-
-
 class inventory:
     items = {}
     current_slot = 1
@@ -142,7 +138,7 @@ class turtleInventory(inventory):
 
                 if not self.add_item(name, count):
 
-                    error("adding item to inventory failed")
+                    print("adding item to inventory failed")
                     return False
 
         return True
