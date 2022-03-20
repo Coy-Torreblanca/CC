@@ -19,9 +19,9 @@ class chest_quarry:
     def __init__(self):
         self.nav = nav.nav()
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
-        self.chest = self.put_chest()
         self.db = chests.chests()
         self.job = "chest_quarry_" + self.nav.locate()
+        self.chest = self.put_chest()
 
     def put_chest(self):
         self.nav.turn_left()
