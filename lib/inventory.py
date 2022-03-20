@@ -3,6 +3,7 @@
 from cc import turtle, fs, import_file
 
 mongo = import_file("/data/mongo_client.py")
+move_to_inspect, move_to_dig = import_file("/data/movement.py")
 
 # TODO: add drop
 # grass -> dirt problem
@@ -144,9 +145,9 @@ class turtleInventory(inventory):
 
         return True
 
-    def dig(self):
+    def dig(self, direction):
         print("digging...")
-        block = self.turtle.inspect()
+        block = move_to_inspect[direction]()
 
         if not block:
 
@@ -172,7 +173,7 @@ class turtleInventory(inventory):
                 count = 0
 
             self.turtle.select(slot)
-            self.turtle.dig()
+            move_to_dig[direction]()
 
             print("dug")
 
@@ -201,7 +202,7 @@ class turtleInventory(inventory):
             return False
 
         self.turtle.select(self.current_slot)
-        self.turtle.dig()
+        move_to_dig[direction]()
 
         item = self.turtle.getItemDetail(self.current_slot)
 
