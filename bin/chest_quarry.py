@@ -6,7 +6,7 @@ inv = import_file("/lib/inventory.py")
 refuel = import_file("/lib/fuel.py").refuel
 move_to_inspect, move_to_dig = import_file("/data/movement.py").get_data()
 data = import_file("/data/mongo_client.py")
-chest_management = import_file("/lib/chest_management.py")
+cm = import_file("/lib/chest_management.py")
 
 
 # passing args is not working
@@ -19,7 +19,7 @@ class chest_quarry:
         self.inventory = inv.turtleInventory(turtle)  # test - should be 16
         self.db = data.dig_map()
         self.job = "chest_quarry_" + str(self.nav.locate())
-        self.chest_management = chest_management.chest_management(
+        self.chest_management = cm.chest_management(
             self.job, self.nav, self.inventory, turtle
         )
 
