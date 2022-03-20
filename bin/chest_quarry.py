@@ -124,7 +124,9 @@ class chest_quarry:
                     print("detecting")
                     while turtle.detect():
                         print("beg. quarrying dig")
-                        self.dig()
+                        if not self.dig():
+                            print("could not dig")
+                            return False
                     if not self.nav.forward():
                         print("cannot move forward *?*")
                         return False
@@ -140,7 +142,9 @@ class chest_quarry:
                     turn()
 
                     while turtle.detect():
-                        self.dig()
+                        if not self.dig():
+                            print("could not dig")
+                            return False
 
                     if not self.nav.forward():
                         print("could not move forward *?*")
