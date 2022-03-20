@@ -41,12 +41,12 @@ class chest_quarry:
 
         return inventory
 
-    def dig(self, direction):
+    def dig(self, turtle_direction):
 
-        block = move_to_inspect[direction]()
+        block = move_to_inspect[turtle_direction]()
         if block:
             self.inventory.print()  # test
-            if not self.inventory.dig(direction):
+            if not self.inventory.dig(turtle_direction):
                 if self.chest.is_full_item(block["name"]):
                     print("creating new chest")
                     self.chest = self.put_chest(self.job)
@@ -82,10 +82,10 @@ class chest_quarry:
                         return False
                     self.nav.turn_to(direction)
                     print("returned to original position")
-                block = move_to_inspect[direction]()
+                block = move_to_inspect[turtle_direction]()
                 if block:
                     self.inventory.print()  # test
-                    return self.inventory.dig(direction)
+                    return self.inventory.dig(turtle_direction)
         return True
 
     def quarry(self, length, width, height):
