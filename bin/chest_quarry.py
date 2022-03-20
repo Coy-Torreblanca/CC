@@ -45,7 +45,7 @@ class chest_quarry:
                 direction = cardinal_directions["direction"]
                 new_direction = -1 if direction == 1 else direction
                 new_location = self.nav.locate()
-                location[axis] += new_direction
+                new_location[axis] += new_direction
 
                 if not self.chest_management.drop_into_chest(
                     new_direction,
