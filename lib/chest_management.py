@@ -55,15 +55,15 @@ class chest_management:
     def drop_into_chest(
         self, new_chest_direction, new_chest_location, item_item, double, drop_exception
     ):
-        starting_position = nav.locate()
-        starting_direction = nav.direction
+        starting_position = self.nav.locate()
+        starting_direction = self.nav.direction
 
         if self.chest and self.chest.is_full_item(item_name):
-            if not nav.path(new_chest_location):
+            if not self.nav.path(new_chest_location):
                 print("could not path to new chest location")
                 return False
 
-            nav.turn_to(new_chest_direction)
+            self.nav.turn_to(new_chest_direction)
             new_chest = self.put_chest(double)
             if not new_chest:
                 print("count not create new chest")
@@ -72,10 +72,10 @@ class chest_management:
             self.chest = new_chest
 
         else:
-            if not nav.path(self.chest.position):
+            if not self.nav.path(self.chest.position):
                 print("could not path to old chest")
                 return False
-            nav.turn_to(self.chest.direction)
+            self.nav.turn_to(self.chest.direction)
 
         for item_name in list(self.inventory.items.keys())[:]:
             if item_name not in drop_exception:
