@@ -103,6 +103,7 @@ class chest_quarry:
 
     def quarry(self, length, width, height):
 
+        print("beg. quarrying...")
         if not self.nav.direction_test_pass:
             error("direction test pass failed")
             return False
@@ -118,6 +119,7 @@ class chest_quarry:
                 for y in range(length - 1):
 
                     while turtle.detect():
+                        print("beg. quarrying dig")
                         self.dig()
                     if not self.nav.forward():
                         print("cannot move forward *?*")

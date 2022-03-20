@@ -148,7 +148,7 @@ class turtleInventory(inventory):
         return True
 
     def dig(self):
-
+        print("digging...")
         block = self.turtle.inspect()
 
         if not block:
@@ -158,6 +158,7 @@ class turtleInventory(inventory):
         inventory_name = self.db.find_inventory(block["name"])
 
         if inventory_name:
+            print("found item in db")
 
             if self.is_full_item(inventory_name):
                 return False
@@ -176,6 +177,8 @@ class turtleInventory(inventory):
             self.turtle.select(slot)
             self.turtle.dig()
 
+            print("dug")
+
             if inventory_name == "None":
                 return True
 
@@ -185,8 +188,6 @@ class turtleInventory(inventory):
             item = self.turtle.getItemDetail(slot)
             add_count = item["count"] - count
 
-            print("add count 1 ", add_count)  # test
-
             # Add any items that may have leaked to another slot to count
             if count == 64:
                 print("here")  # test
@@ -194,7 +195,7 @@ class turtleInventory(inventory):
                 if item:
                     add_count += item["count"]
 
-            print("add count: ", add_count)  # test
+            print("adding to inventory")
 
             return self.add_item(inventory_name, add_count)
 
@@ -246,10 +247,11 @@ class turtleInventory(inventory):
             drop_count = item[1] if item[1] < count else count
 
             # Drop Item
-            if chest.is_full_item(item_name):
-                return False
             if chest:
-                chest.add_item(item_name, drop_count)
+                if chest.is_full_item(item_name) or not chest.add_item(
+                    item_name, drop_count
+                ):
+                    return False
             self.turtle.select(drop_slot)
             self.turtle.drop(drop_count)
             count -= drop_count
