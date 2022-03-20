@@ -38,9 +38,9 @@ class chest_quarry:
                 inventory_name = self.db.find_inventory(block["name"])
                 inventory_name = inventory_name or block["name"]
 
-                new_cardinal = nav.get_opposite_direction()
+                new_cardinal = self.nav.get_opposite_direction()
 
-                cardinal_directions = nav.get_cardinal_directions()
+                cardinal_directions = self.nav.get_cardinal_directions()
                 axis = cardinal_directions["axis"]
                 direction = cardinal_directions["direction"]
                 new_direction = -1 if direction == 1 else direction
