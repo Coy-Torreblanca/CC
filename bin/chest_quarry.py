@@ -5,6 +5,7 @@ nav = import_file("/lib/nav.py")
 inv = import_file("/lib/inventory.py")
 chests = import_file("/data/mongo_client.py")
 refuel = import_file("/lib/fuel.py").refuel
+move_to_inspect, move_to_dig = import_file("/data/movement.py").get_data()
 
 
 # passing args is not working
@@ -40,9 +41,9 @@ class chest_quarry:
 
         return inventory
 
-    def dig(self):
+    def dig(self, direction):
 
-        block = turtle.inspect()
+        block = move_to_inspect[direction]()
         if block:
             self.inventory.print()  # test
             if not self.inventory.dig():
@@ -81,10 +82,10 @@ class chest_quarry:
                         return False
                     self.nav.turn_to(direction)
                     print("returned to original position")
-                block = turtle.inspect()
+                block = move_to_inspect[direction]()
                 if block:
                     self.inventory.print()  # test
-                    return self.inventory.dig()
+                    return self.inventory.dig(direction)
         return True
 
     def quarry(self, length, width, height):
@@ -108,7 +109,7 @@ class chest_quarry:
                     print("detecting")
                     while turtle.detect():
                         print("beg. quarrying dig")
-                        if not self.dig():
+                        if not self.dig(turtle.forward):
                             print("could not dig")
                             return False
                     if not self.nav.forward():
@@ -126,7 +127,7 @@ class chest_quarry:
                     turn()
 
                     while turtle.detect():
-                        if not self.dig():
+                        if not self.dig(turtle.forward):
                             print("could not dig")
                             return False
 
@@ -137,9 +138,10 @@ class chest_quarry:
                     turn()
 
             if z != height - 1:
-                if turtle.detectDown():  # replace with dig function
-                    turtle.digDown()
-
+                while turtle.detectDown():  # replace with dig function
+                    if not self.dig(turtle.down):
+                        print("could not dig")
+                        return False
                 if not self.nav.down():
                     print("could not move down")
                     return False

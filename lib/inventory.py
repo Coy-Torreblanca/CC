@@ -3,7 +3,7 @@
 from cc import turtle, fs, import_file
 
 mongo = import_file("/data/mongo_client.py")
-move_to_inspect, move_to_dig = import_file("/data/movement.py")
+move_to_inspect, move_to_dig = import_file("/data/movement.py").get_data()
 
 # TODO: add drop
 # grass -> dirt problem
