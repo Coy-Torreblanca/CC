@@ -13,12 +13,6 @@ def error(message):
 
 # passing args is not working
 args = [64, 64, 64]  # test
-if len(args) < 3:
-    print("usage: quarry <length> <width> <height>")
-else:
-    length, width, height = [int(x) for x in args[:3]]
-    quarry = chest_quarry()
-    quarry.quarry(length, width, height, True)
 
 
 class chest_quarry:
@@ -160,3 +154,11 @@ class chest_quarry:
                 turn()
                 turn()
         return True
+
+
+if len(args) < 3:
+    print("usage: quarry <length> <width> <height>")
+else:
+    length, width, height = [int(x) for x in args[:3]]
+    quarry = chest_quarry()
+    quarry.quarry(length, width, height, True)
