@@ -26,8 +26,9 @@ class chest_management:
             print("chest could not be placed")
             return None
 
+        inventory_size = 27
+
         if double:
-            inventory_size = 27
 
             if self.inventory.search("minecraft:chest"):
                 self.nav.turn_left()
