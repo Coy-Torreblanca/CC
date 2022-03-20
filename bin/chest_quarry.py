@@ -40,7 +40,7 @@ class chest_quarry:
 
                 new_cardinal = self.nav.get_opposite_direction()
 
-                cardinal_directions = self.nav.get_cardinal_directions()
+                cardinal_directions = self.nav.get_cardinal_coordinates()
                 axis = cardinal_directions["axis"]
                 direction = cardinal_directions["direction"]
                 new_direction = -1 if direction == 1 else direction
