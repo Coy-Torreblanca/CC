@@ -101,7 +101,8 @@ class chest_quarry:
                 block = turtle.inspect()
                 if block:
                     self.inventory.print()  # test
-                    self.inventory.dig()
+                    return self.inventory.dig()
+        return True
 
     def quarry(self, length, width, height):
 
