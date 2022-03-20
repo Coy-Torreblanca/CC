@@ -13,7 +13,7 @@ class chest_management:
         self.nav = nav
         self.db = chests.chests()
         self.job = job + "_" + str(self.nav.locate())
-        self.chest = self.put_chest(self.job)
+        self.chest = None
         self.inventory = inventory
         self.turtle = turtle
 
@@ -57,7 +57,7 @@ class chest_management:
         starting_position = nav.locate()
         starting_direction = nav.direction
 
-        if self.chest.is_full_item(item_name):
+        if self.chest and self.chest.is_full_item(item_name):
             if not nav.path(new_chest_location):
                 print("could not path to new chest location")
                 return False

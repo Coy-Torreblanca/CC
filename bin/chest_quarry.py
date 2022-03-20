@@ -23,6 +23,11 @@ class chest_quarry:
             self.job, self.nav, self.inventory, turtle
         )
 
+        self.nav.turn_to(self.nav.get_opposite_direction())
+        chest = self.chest_management.put_chest(self, False)
+        self.chest_management.chest = chest
+        self.nav.turn_to(self.nav.get_opposite_direction())
+
     def dig(self, turtle_direction):
 
         block = move_to_inspect[turtle_direction]()
