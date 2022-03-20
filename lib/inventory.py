@@ -288,14 +288,14 @@ class turtleInventory(inventory):
         while count:
 
             if item_name not in self.items:
-                return True
+                return False
 
             item = self.items[item_name]
 
             # Get slot of item to drop
             drop_slot = item[0]
             # Calculate number to drop from this slot
-            drop_count = item[1] if item[1] < count else count
+            drop_count = 1
 
             # Drop Item
             self.turtle.select(drop_slot)
