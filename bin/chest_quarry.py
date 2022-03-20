@@ -71,7 +71,7 @@ class chest_quarry:
                     # remove turn by editing put_self.chest
                     direction = self.nav.direction
                     self.nav.turn_to(self.chest.direction)
-                    for key in list(self.inventory.keys())[:]:
+                    for key in list(self.inventory.items.keys())[:]:
                         refuel()
                         if key != "minecraft:chest":
                             self.inventory.drop(key, chest)
@@ -84,7 +84,7 @@ class chest_quarry:
                         print("chest could not be reached")
                         return False
                     self.nav.turn_to(self.chest.direction)
-                    for key in list(self.inventory.keys())[:]:
+                    for key in list(self.inventory.items.keys())[:]:
                         if key != "minecraft:chest":
                             refuel()
                             self.inventory.drop(key, chest)
