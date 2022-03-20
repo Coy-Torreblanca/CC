@@ -54,13 +54,13 @@ class inventory:
                 if count < 64:
                     return False
             return True
-        return True
+        return False
 
     def is_full_item(self, name):
         if self.current_slot > self.max_storage:
             if name in self.items:
                 return self.items[name][1] == 64
-        return True
+        return False
 
     def add_item(self, name, count=1):
         # TODO use dictionary for slot details
@@ -144,6 +144,9 @@ class turtleInventory(inventory):
 
                     error("adding item to inventory failed")
                     return False
+
+                return True
+
             else:
 
                 return True
