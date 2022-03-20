@@ -23,7 +23,7 @@ class chest_quarry:
         self.db = chests()
         self.job = "chest_quarry_" + self.nav.locate()
 
-    def put_chest(self, record):
+    def put_chest(self):
         self.nav.turn_left()
         self.nav.turn_left()
 
@@ -54,8 +54,7 @@ class chest_quarry:
         inventory = inv.inventory(
             1, self.nav.locate(), self.nav.direction
         )  # test - should be inventory_size
-        if record:
-            self.chest.insert(self.nav.locate(), self.nav.direction, self.job)
+        self.chest.insert(self.nav.locate(), self.nav.direction, self.job)
 
         self.nav.turn_left()
         self.nav.turn_left()
