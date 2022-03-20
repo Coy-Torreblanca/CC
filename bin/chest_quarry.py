@@ -74,7 +74,7 @@ class chest_quarry:
                     for key in list(self.inventory.items.keys())[:]:
                         refuel()
                         if key != "minecraft:chest":
-                            self.inventory.drop(key, chest)
+                            self.inventory.drop(key, self.chest)
                     self.nav.turn_to(direction)
 
                 else:
@@ -87,7 +87,7 @@ class chest_quarry:
                     for key in list(self.inventory.items.keys())[:]:
                         if key != "minecraft:chest":
                             refuel()
-                            self.inventory.drop(key, chest)
+                            self.inventory.drop(key, self.chest)
                     if not self.nav.path(position):
                         print("return position could not be reached")
                         return False
