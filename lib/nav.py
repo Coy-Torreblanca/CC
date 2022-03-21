@@ -146,20 +146,29 @@ class nav:
         if not coordinates:
             return True
 
-        while self.locate() != coordinates:
-            if not self.move(coordinates):
-                current_position = self.locate()
-                for axis in range(3):
-                    for movement in [1, -1]:
-                        next_position = [0, 0, 0]
-                        next_position[axis] = movement
-                        self.move_relative(next_position)
-                        if self.move(coordinates):
-                            return True
-                        if not self.move(current_position):
-                            return False
-            return True
-        return True
+        if not self.move(coordinates):
+            current_position = self.locate()
+            for axis in range(2):
+                for movement in [1, -1]:
+                    starting_position = self.locate()
+                    starting_direction = self.locate()
+                    self.turn_to(coordinate_cardinal_map[axis][movement])
+                    self.forward()
+                    if self.move(self, coordinates):
+                        return True
+                    if not self.move(self, starting_position):
+                        return False
+                    self.turn_to(starting_direction)
+
+            for movement in [self.up, self.down]:
+                starting_position = self.locate()
+                starting_direction = self.locate()
+                movement()
+                if self.move(self, coordinates):
+                    return True
+                if not self.move(self, starting_position):
+                    return False
+                self.turn_to(starting_direction)
 
     def get_cardinal_coordinates(self):
         return cardinal_coordinate_map[self.direction]
