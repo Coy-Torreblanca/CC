@@ -143,6 +143,8 @@ class nav:
         return False
 
     def path(self, coordinates):
+        if not coordinates:
+            return True
 
         while self.locate() != coordinates:
             if not self.move(coordinates):
