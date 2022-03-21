@@ -154,9 +154,9 @@ class nav:
                     starting_direction = self.locate()
                     self.turn_to(coordinate_cardinal_map[axis][movement])
                     self.forward()
-                    if self.move(self, coordinates):
+                    if self.move(coordinates):
                         return True
-                    if not self.move(self, starting_position):
+                    if not self.move(starting_position):
                         return False
                     self.turn_to(starting_direction)
 
