@@ -177,7 +177,7 @@ class turtleInventory(inventory):
 
             print("dug")
 
-            if inventory_name == "None" or not self.turtle.getItemDeteail(slot):
+            if inventory_name == "None" and not self.turtle.getItemDeteail(slot):
                 return True
 
             print("slot ", slot, " count", count)  # test
@@ -188,14 +188,13 @@ class turtleInventory(inventory):
 
             # Add any items that may have leaked to another slot to count
             if count == 64:
-                print("here")  # test
                 item = self.turtle.getItemDetail(self.current_slot)
                 if item:
                     add_count += item["count"]
 
             print("adding to inventory")
 
-            return self.add_item(inventory_name, add_count)
+            return self.add_item(item["name"], add_count)
 
         # Unkown item won't be added to an inventory without empty slot
         if self.current_slot > self.max_storage:
