@@ -177,7 +177,7 @@ class turtleInventory(inventory):
 
             print("dug")
 
-            if inventory_name == "None":
+            if inventory_name == "None" or not self.turtle.getItemDeteail(slot):
                 return True
 
             print("slot ", slot, " count", count)  # test
